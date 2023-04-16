@@ -1,0 +1,5 @@
+{
+    "nome": "Framework predocs",
+    "server": "http://localhost/predocs/server/",
+    "caminho": "/predocs/"
+}
