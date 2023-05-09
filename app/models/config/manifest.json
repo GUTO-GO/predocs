@@ -1,8 +1,8 @@
 {
-    "name": "Framework predocs",
-    "short_name": "predocs",
-    "description": "Um framework para desenvolvimento web",
-    "start_url": "http://localhost/predocs/app/pages/index.html",
+    "name": "Dossier",
+    "short_name": "Dossier",
+    "description": "Uma plataforma para armazenamento de arquivos",
+    "start_url": "http://localhost/etec/app/pages/index.html",
 
     "display": "standalone",
     "theme_color": "#c4c4c4",
