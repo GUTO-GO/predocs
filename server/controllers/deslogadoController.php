@@ -1,14 +1,32 @@
 <?php
 
-function cadastro($var = "vazia", $var2 = null, $var3 = null)
+class deslogado
 {
-    return [
-        "parametro" => [
-            $var,
-            $var2,
-            $var3
-        ],
-        "post" => $_POST,
-        "arquivo" => $_FILES
-    ];
+    public function __autorizado($metodo)
+    {
+        $funcoes = [
+            "login"
+        ];
+        if (in_array($metodo, $funcoes)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function login()
+    {
+        $banco = new Banco();
+
+        $usuario = $banco->select([
+            "tabela" => "usuario",
+            "igual" => [
+                "email" => $_POST["email"],
+                "senha" => hash('sha512', $_POST["senha"]),
+                "ativo" => true
+            ]
+        ]);
+
+        return count($usuario) == 1;
+    }
 }
