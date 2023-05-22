@@ -26,7 +26,14 @@
                                 <input name="senha" type="password" class="form-control" id="senha"
                                     autocomplete="current-password" required />
                             </div>
-                            <button type="" class="btn" tipo="confirma">Entrar</button>
+                            <div class="row">
+                                <div class="col-5">
+                                    <button class="btn" tipo="confirma">Entrar</button>
+                                </div>
+                                <div class="col-7">
+                                    <p id="msg-retorno-erro" tipo="erro">Login ou senha incorretos!</p>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -37,14 +44,17 @@
     <script id="coreJs" src="../core/predocs.js"></script>
     <script type="text/javascript">
         let app = {
-            // componentesBloqueados: ["nav"],
+            componentesBloqueados: [],
             scripts: [],
             scriptsBloqueados: [],
-            styles: ["/css/pages/index.css"],
+            styles: [
+                "/css/pages/index.css",
+                "/css/pages/deslogado/login.css"
+            ],
             stylesBloqueados: [],
-        }
+        };
 
-        let docs = new Predocs();
+        let docs = new Predocs(app);
 
         let before = () => { };
         let after = () => {
@@ -54,7 +64,11 @@
                 },
                 (resp) => {
                     docs.carregando.hide();
-                    console.log(resp);
+                    if (resp.status) {
+                        window.location.href = "principal.html";
+                    } else {
+                        $("#msg-retorno-erro").show();
+                    }
                 }
             );
         };
