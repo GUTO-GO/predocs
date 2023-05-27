@@ -2,21 +2,34 @@
 <html lang="pt-br">
 
 <head>
-    <title>Login</title>
+    <title>principal</title>
 </head>
 
 <body>
-    <section id="app">
-
+    <section id="app" class="row">
+        <center class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b>Home/pasta 1/pasta 2/pasta teste/</b>
+                    </div>
+                    <div class="card-body">
+                        <section id="pastas" class="row conteudo-centro">
+                            <!-- js coloca pastas e arquivos aqui -->
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </center>
     </section>
 
     <script id="coreJs" src="../core/predocs.js"></script>
     <script type="text/javascript">
         let app = {
             componentesBloqueados: [],
-            scripts: [],
+            scripts: ["/js/pages/home/principal.js"],
+            styles: ["/css/pages/home/principal.css"],
             scriptsBloqueados: [],
-            styles: [],
             stylesBloqueados: [],
         }
 
@@ -24,7 +37,111 @@
 
         let before = () => { };
         let after = () => {
+            // let pastas = [];
+            let pastas = [
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "pasta",
+                    nome: "minha pasta"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+                {
+                    tipo: "arquivo",
+                    nome: "Meu arquivo teste"
+                },
+            ];
 
+            exibePastas(pastas);
         };
 
         docs.init(before, after);
