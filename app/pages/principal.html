@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <b>Home/pasta 1/pasta 2/pasta teste/</b>
+                        <h2><b>Opções disponiveis</b></h2>
                     </div>
                     <div class="card-body">
                         <section id="pastas" class="row conteudo-centro">
@@ -37,111 +37,7 @@
 
         let before = () => { };
         let after = () => {
-            // let pastas = [];
-            let pastas = [
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "pasta",
-                    nome: "minha pasta"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-                {
-                    tipo: "arquivo",
-                    nome: "Meu arquivo teste"
-                },
-            ];
-
-            exibePastas(pastas);
+            exibeIcones(JSON.parse(docs.get("/server/usuario/getLinks")));
         };
 
         docs.init(before, after);
