@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>principal</title>
+</head>
+
+<body>
+    <section id="app" class="row">
+        <center class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><b>Usuarios:</b></h2>
+                    </div>
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+            </div>
+        </center>
+    </section>
+
+    <script id="coreJs" src="../../core/predocs.js"></script>
+    <script type="text/javascript">
+        let app = {
+            componentesBloqueados: [],
+            scripts: [],
+            styles: [],
+            scriptsBloqueados: [],
+            stylesBloqueados: [],
+        }
+
+        let docs = new Predocs(app);
+
+        let before = () => { };
+        let after = () => { 
+            console.log(docs.get("/server/usuario/listar"))
+        };
+
+        docs.init(before, after);
+    </script>
+</body>
+
+</html>

@@ -14,7 +14,7 @@ class Usuario
                 "tipo" => "link",
                 "nome" => "Usuarios",
                 "icone" => "/midia/icones/usuario.png",
-                // "url" => "/pages/usuarios/listar.html"
+                "url" => "/pages/usuarios/listar.html"
             ],
             [
                 "tipo" => "link",
@@ -22,5 +22,13 @@ class Usuario
                 "icone" => "/midia/icones/pasta.png",
             ]
         ];
+    }
+
+    function listar(){
+        $banco = new Banco();
+        
+        return $banco->select([
+            "tabela" => "usuario"
+        ]);
     }
 }
