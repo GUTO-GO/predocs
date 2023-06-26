@@ -19,7 +19,7 @@
                         <div class="card bg-authentication mb-0">
                             <div class="row m-0">
                                 <!-- left section-login -->
-                                <div class="col-md-6 col-12 px-0">
+                                <div class="col-md-6 col-12 px-0" id="left-section">
                                     <div class="card disable-rounded-right mb-0 p-2 h-100 d-flex justify-content-center">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
@@ -33,17 +33,30 @@
                                                         <small>Bem vindo ao {{nome}}</small>
                                                     </div>
                                                 </div>
-                                                <form>
+                                                <form action="/deslogado/login" method="POST" id="login">
                                                     <div class="form-group mb-50">
-                                                        <label class="text-bold-600" for="exampleInputEmail1">Email</label>
-                                                        <input type="email" class="form-control" id="exampleInputEmail1"
-                                                            placeholder="Endereço de email">
+                                                        <label class="text-bold-600" for="email">Email</label>
+                                                        <input 
+                                                            type="email" 
+                                                            class="form-control" 
+                                                            id="email" name="email"
+                                                            placeholder="Endereço de email" 
+                                                            required
+                                                            data-validation-required-message="O campo de email é obrigatório"
+                                                            >
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="text-bold-600"
-                                                            for="exampleInputPassword1">Senha</label>
-                                                        <input type="password" class="form-control"
-                                                            id="exampleInputPassword1" placeholder="Senha">
+                                                            for="senha">Senha</label>
+                                                        <input 
+                                                            type="password" 
+                                                            class="form-control"
+                                                            id="senha" 
+                                                            name="senha" 
+                                                            placeholder="Senha"
+                                                            required
+                                                            data-validation-required-message="O campo de senha é obrigatório"
+                                                            >
                                                     </div>
                                                     <div
                                                         class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
@@ -70,7 +83,6 @@
                     </div>
                 </section>
                 <!-- login page ends -->
-    
             </div>
         </div>
     </div>
@@ -81,7 +93,10 @@
     <script type="text/javascript">
         let app = {
             componentesBloqueados: ["nav"],
-            scripts: [],
+            scripts: [
+                "/framework/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js",
+                "/framework/app-assets/vendors/js/ui/blockUI.min.js"
+            ],
             scriptsBloqueados: [],
             styles: [],
             stylesBloqueados: [],
@@ -92,7 +107,45 @@
         let before = () => {
             docs.replaceTextInView("body", docs.getConfig("app"));
         };
-        let after = () => { };
+        let after = () => { 
+            docs.form("#login",
+                () => {
+                    $("#left-section").block({
+                        message: '<div class="semibold"><span class="bx bx-revision icon-spin text-left"></span>&nbsp; Carregando ...</div>',
+                        fadeIn: 1000,
+                        fadeOut: 1000,
+                        // timeout: 2000, //unblock after 2 seconds
+                        overlayCSS: {
+                            backgroundColor: "white",
+                            opacity: 0.8,
+                            cursor: 'wait'
+                        },
+                        css: {
+                            border: 0,
+                            padding: '10px 15px',
+                            color: "white",
+                            width: 'auto',
+                            backgroundColor: '#333'
+                        }
+                    });
+                },
+                (resp) => {
+                    $("#left-section").unblock();
+                    if (resp.status) {
+                        window.location.href = "principal.html";
+                    } else {
+                        Swal.fire({
+                            title: "Erro!",
+                            text: "Login ou senha invalidos",
+                            type: "error",
+                            confirmButtonClass: 'btn btn-primary',
+                            buttonsStyling: false,
+                        });
+                    }
+                }
+            );
+
+        };
 
         docs.init(before, after);
     </script>
