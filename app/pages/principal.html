@@ -2,33 +2,18 @@
 <html lang="pt-br">
 
 <head>
-    <title>principal</title>
+    <title>Principal</title>
 </head>
 
-<body>
-    <section id="app" class="row">
-        <center class="row mt-3">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h2><b>Opções disponiveis</b></h2>
-                    </div>
-                    <div class="card-body">
-                        <section id="pastas" class="row conteudo-centro">
-                            <!-- js coloca pastas e arquivos aqui -->
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </center>
-    </section>
-
+<body data-menu="vertical-menu-modern">
+    
+    
     <script id="coreJs" src="../core/predocs.js"></script>
     <script type="text/javascript">
         let app = {
             componentesBloqueados: [],
-            scripts: ["/js/pages/home/principal.js"],
-            styles: ["/css/pages/home/principal.css"],
+            scripts: [],
+            styles: [],
             scriptsBloqueados: [],
             stylesBloqueados: [],
         }
@@ -36,9 +21,7 @@
         let docs = new Predocs(app);
 
         let before = () => { };
-        let after = () => {
-            exibeIcones(JSON.parse(docs.get("/server/usuario/getLinks")));
-        };
+        let after = () => { };
 
         docs.init(before, after);
     </script>
