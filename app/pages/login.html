@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/colors.css">
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/components.css">
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/themes/dark-layout.css">
+
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/extensions/sweetalert2.min.css">
 </head>
 
 <body class="vertical-layout vertical-menu-modern dark-layout 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page blank-page">
@@ -40,7 +43,7 @@
                                                         <small>Bem vindo ao {{nome}}</small>
                                                     </div>
                                                 </div>
-                                                <form action="/deslogado/login" method="POST" id="login">
+                                                <form action="/deslogado/login" method="POST" id="login" novalidate>
                                                     <div class="form-group mb-50">
                                                         <label class="text-bold-600" for="email">Email</label>
                                                         <input 
@@ -65,14 +68,17 @@
                                                             data-validation-required-message="O campo de senha é obrigatório"
                                                             >
                                                     </div>
-                                                    <div
-                                                        class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
-                                                        <div class="text-right"><a href=""
-                                                                class="card-link"><small>Esqueceu a senha ?</small></a></div>
+                                                    <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
+                                                        <div class="text-right">
+                                                            <a href="" class="card-link">
+                                                                <small>Esqueceu a senha ?</small>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <button type="submit"
-                                                        class="btn btn-primary glow w-100 position-relative">Login<i
-                                                            id="icon-arrow" class="bx bx-right-arrow-alt"></i></button>
+                                                    <button type="submit" class="btn btn-primary glow w-100 position-relative">
+                                                        Login
+                                                        <i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
@@ -161,6 +167,13 @@
     <script src="/app/framework/app-assets/js/core/app.js"></script>
     <script src="/app/framework/app-assets/js/scripts/components.js"></script>
     <!-- fim scripts -->
+
+    <!-- inicio Scripts pagina -->
+    <script src="/app/framework/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
+    <script src="/app/framework/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="/app/framework/app-assets/vendors/js/extensions/polyfill.min.js"></script>
+    <script src="/app/framework/app-assets/vendors/js/ui/blockUI.min.js"></script>
+    <!-- Fim Scripts pagina -->
 
 </body>
 
