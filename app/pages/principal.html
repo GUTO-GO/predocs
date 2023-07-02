@@ -1,30 +1,59 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 
 <head>
     <title>Principal</title>
+
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/themes/dark-layout.css">
+
+    <!-- Inicio Style da pagina -->
+    <!-- Fim Style da pagina -->
+
 </head>
 
-<body data-menu="vertical-menu-modern">
-    
-    
+<body class="vertical-layout dark-layout content-left-sidebar file-manager-application navbar-sticky footer-static pace-done menu-hide vertical-overlay-menu"
+ data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar" data-layout="dark-layout">
+
+    <div class="app-content content">
+    <!-- <h1>{{nome}}</h1> -->
+    </div>
+
+    <!-- inicio Framework -->
     <script id="coreJs" src="../core/predocs.js"></script>
     <script type="text/javascript">
         let app = {
             componentesBloqueados: [],
-            scripts: [],
-            styles: [],
-            scriptsBloqueados: [],
-            stylesBloqueados: [],
         }
 
         let docs = new Predocs(app);
 
-        let before = () => { };
+        let before = () => { docs.replaceTextInView("body", docs.getConfig("app")); };
         let after = () => { };
 
         docs.init(before, after);
     </script>
+    <!-- Fim framework -->
+
+    <!-- inicio scripts -->
+    <script src="/app/framework/jquery-3.6.0.js"></script>
+    <script src="/app/framework/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
+    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
+    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+    <script src="/app/framework/app-assets/js/core/app-menu.js"></script>
+    <script src="/app/framework/app-assets/js/core/app.js"></script>
+    <script src="/app/framework/app-assets/js/scripts/components.js"></script>
+    <!-- fim scripts -->
+
+
+    <!-- Inicio Scripts da pagina -->
+    <!-- Fim Scripts da pagina -->
+
 </body>
 
 </html>
