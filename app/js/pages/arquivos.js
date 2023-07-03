@@ -1,13 +1,3 @@
-/*=========================================================================================
-    File Name: app-email.js
-    Description: app-email Javascripts
-    ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-   Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
 $(function () {
     "use strict";
     // variables

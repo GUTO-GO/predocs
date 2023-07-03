@@ -153,7 +153,7 @@
 }
 
 .file-manager-application .content-area-wrapper .content-right .app-file-area .app-file-content {
-    height: calc(100vh - 12.85rem);
+    height: calc(200vh - 12.85rem);
     position: relative;
 }
 
