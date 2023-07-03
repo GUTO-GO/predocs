@@ -1,6 +1,6 @@
 {
     "instalado": false,
-    "tipo": "sqlite",
+    "tipo": "mysql",
     "nome": "dossier",
     "sqlite": {},
     "mysql": {

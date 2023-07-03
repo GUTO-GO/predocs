@@ -3,7 +3,7 @@ create table if not exists `usuario` (
 	`nome` varchar(255) NOT NULL,
 	`email` varchar(255) NOT NULL,
 	`senha` varchar(512) NOT NULL,
-	`ativo` boolean default false,
+	`ativo` boolean default true,
 	`criado` datetime,
 	`modificado` datetime
 );
