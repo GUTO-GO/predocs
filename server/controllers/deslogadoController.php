@@ -23,7 +23,7 @@ class deslogado
             "igual" => [
                 "email" => $_POST["email"],
                 "senha" => hash('sha512', $_POST["senha"]),
-                "ativo" => true
+                "status" => "ativo"
             ]
         ]);
 
