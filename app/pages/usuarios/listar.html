@@ -1,45 +1,146 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 
 <head>
-    <title>principal</title>
+    <title>Usuarios</title>
+
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/pages/page-users.css">
+    
+    <!-- Inicio Style da pagina -->
+    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="/app/css/pages/usuarios/listar.css">
+    <!-- Fim Style da pagina -->
+
 </head>
 
-<body>
-    <section id="app" class="row">
-        <center class="row mt-3">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h2><b>Usuarios:</b></h2>
-                    </div>
-                    <div class="card-body">
-                        
-                    </div>
-                </div>
-            </div>
-        </center>
-    </section>
+<body
+    class="vertical-layout dark-layout content-left-sidebar file-manager-application navbar-sticky footer-static pace-done menu-hide vertical-overlay-menu"
+    data-layout="dark-layout" data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar"
+    data-layout="dark-layout">
 
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- users list start -->
+                <section class="users-list-wrapper">
+                    <div class="users-list-filter px-1">
+                        <form>
+                            <div class="row border rounded py-2 mb-2">
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <label for="users-list-tipo">TIPO</label>
+                                    <fieldset class="form-group">
+                                        <select class="form-control" id="users-list-tipo" data-filtro>
+                                            <option value="">Todos</option>
+                                            <option value="Usuario">Usuario</option>
+                                            <option value="Admin">Admin</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <label for="users-list-status">Status</label>
+                                    <fieldset class="form-group">
+                                        <select class="form-control" id="users-list-status" data-filtro>
+                                            <option value="">Todos</option>
+                                            <option value="ativo">Ativo</option>
+                                            <option value="inativo">Inativo</option>
+                                            <option value="Bloqueado">Bloqueado</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
+                                    <button type="reset"
+                                        class="btn btn-primary btn-block glow users-list-clear mb-0">Limpar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="users-list-table">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <!-- datatable start -->
+                                    <div class="table-responsive">
+                                        <table id="users-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Ultimo login</th>
+                                                    <th>Tipo</th>
+                                                    <th>Status</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Dean Stanley</td>
+                                                    <td>30/04/2019</td>
+                                                    <td>Usuario</td>
+                                                    <td><span class="badge badge-light-success">Ativo</span></td>
+                                                    <td>
+                                                        <a href="#">
+                                                            <i class="bx bx-edit-alt"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- datatable ends -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- users list ends -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <!-- inicio Framework -->
     <script id="coreJs" src="../../core/predocs.js"></script>
     <script type="text/javascript">
         let app = {
             componentesBloqueados: [],
-            scripts: [],
-            styles: [],
-            scriptsBloqueados: [],
-            stylesBloqueados: [],
         }
 
         let docs = new Predocs(app);
 
-        let before = () => { };
-        let after = () => { 
-            console.log(docs.get("/server/usuario/listar"))
-        };
+        let before = () => { docs.replaceTextInView("body", docs.getConfig("app")); };
+        let after = () => { };
 
         docs.init(before, after);
     </script>
+    <!-- Fim framework -->
+
+    <!-- inicio scripts -->
+    <script src="/app/framework/jquery-3.6.0.js"></script>
+    <script src="/app/framework/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
+    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
+    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+    <script src="/app/framework/app-assets/js/core/app-menu.js"></script>
+    <script src="/app/framework/app-assets/js/core/app.js"></script>
+    <script src="/app/framework/app-assets/js/scripts/components.js"></script>
+    <!-- fim scripts -->
+
+
+    <!-- Inicio Scripts da pagina -->
+    <script src="/app/framework/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="/app/framework/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="/app/js/pages/usuarios/listar.js"></script>
+    <!-- Fim Scripts da pagina -->
+
 </body>
 
 </html>
