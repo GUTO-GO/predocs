@@ -61,6 +61,14 @@ class Usuario
                 "msg" => $empty["msg"]
             ];
         }
+        
+        if(!validaEmail($_POST["email"])){
+            return [
+                "status" => false,
+                "code" => "email",
+                "msg" => "O endereço de email não é valido"
+            ];
+        }
 
         $usuario = $banco->select([
             "tabela" => "usuario",
