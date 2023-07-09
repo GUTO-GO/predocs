@@ -29,7 +29,11 @@ class Usuario
         $banco = new Banco();
 
         return $banco->select([
-            "tabela" => "usuario"
+            "tabela" => "usuario",
+            "campos" => [
+                "id", "nome", "email", "status", 
+                "tipo", "criado", "modificado"
+            ]
         ]);
     }
 

@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/components.css">
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/css/pages/page-users.css">
-    
+
     <!-- Inicio Style da pagina -->
     <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/tables/datatable/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="/app/css/pages/usuarios/usuario.css">
@@ -73,24 +73,13 @@
                                             <thead>
                                                 <tr>
                                                     <th>Nome</th>
-                                                    <th>Ultimo login</th>
+                                                    <th>Email</th>
                                                     <th>Tipo</th>
                                                     <th>Status</th>
                                                     <th>Edit</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Dean Stanley</td>
-                                                    <td>30/04/2019</td>
-                                                    <td>Usuario</td>
-                                                    <td><span class="badge badge-light-success">Ativo</span></td>
-                                                    <td>
-                                                        <a href="#">
-                                                            <i class="bx bx-edit-alt"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -116,7 +105,9 @@
         let docs = new Predocs(app);
 
         let before = () => { docs.replaceTextInView("body", docs.getConfig("app")); };
-        let after = () => { };
+        let after = () => { 
+            listarUsuarios();
+        };
 
         docs.init(before, after);
     </script>
