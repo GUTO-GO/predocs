@@ -7,23 +7,6 @@ class Usuario
         return true;
     }
 
-    function getLinks()
-    {
-        return [
-            [
-                "tipo" => "link",
-                "nome" => "Usuarios",
-                "icone" => "/midia/icones/usuario.png",
-                "url" => "/pages/usuarios/listar.html"
-            ],
-            [
-                "tipo" => "link",
-                "nome" => "Arquivos",
-                "icone" => "/midia/icones/pasta.png",
-            ]
-        ];
-    }
-
     function listar()
     {
         $banco = new Banco();
@@ -31,7 +14,7 @@ class Usuario
         return $banco->select([
             "tabela" => "usuario",
             "campos" => [
-                "id", "nome", "email", "status", 
+                "id", "nome", "email", "status",
                 "tipo", "criado", "modificado"
             ]
         ]);
@@ -61,8 +44,8 @@ class Usuario
                 "msg" => $empty["msg"]
             ];
         }
-        
-        if(!validaEmail($_POST["email"])){
+
+        if (!validaEmail($_POST["email"])) {
             return [
                 "status" => false,
                 "code" => "email",
