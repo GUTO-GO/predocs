@@ -38,6 +38,7 @@ class Usuario
         ]);
 
         if ($empty["status"]) {
+            $funcoes->setStatusCode(400);
             return [
                 "status" => false,
                 "code" => "campos",
@@ -46,6 +47,7 @@ class Usuario
         }
 
         if (!validaEmail($_POST["email"])) {
+            $funcoes->setStatusCode(400);
             return [
                 "status" => false,
                 "code" => "email",
@@ -61,6 +63,7 @@ class Usuario
         ]);
 
         if (!empty($usuario)) {
+            $funcoes->setStatusCode(409);
             return [
                 "status" => false,
                 "code" => "email",
