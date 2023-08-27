@@ -18,12 +18,13 @@ class Usuario
 
     /**
      * Função para Listar os usuaris da base
-     * @version 1.0.0
+     * @version 2.0.0
      * @access public
      * @method GET
+     * @param int $id - id do usuario que deseja retornar os dados
      * @return array - array com dados de usuarios 
      */
-    public function listar()
+    public function listar($id)
     {
         $banco = new Banco();
         $funcoes = new Funcoes;
@@ -37,13 +38,37 @@ class Usuario
             ];
         }
 
-        return $banco->select([
-            "tabela" => "usuario",
-            "campos" => [
-                "id", "nome", "email", "status",
-                "tipo", "criado", "modificado"
-            ]
-        ]);
+        if(empty($id)){
+            return $banco->select([
+                "tabela" => "usuario",
+                "campos" => [
+                    "id", "nome", "email", "status",
+                    "tipo", "criado", "modificado"
+                ],
+            ]);
+        }else{
+            if(is_numeric($id)){
+                return $banco->select([
+                    "tabela" => "usuario",
+                    "campos" => [
+                        "id", "nome", "email", "status",
+                        "tipo", "criado", "modificado"
+                    ],
+                    "where" => [
+                        "id" => $id
+                    ]
+                ])[0];
+            }else{
+                $funcoes->setStatusCode(400);
+                return [
+                    "status" => false,
+                    "code" => "id",
+                    "msg" => "O id enviado não é valido!"
+                ];
+            }
+        }
+
+
     }
 
     /**
