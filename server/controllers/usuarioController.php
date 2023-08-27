@@ -7,9 +7,25 @@ class Usuario
         return true;
     }
 
-    function listar()
+    /**
+     * Função para Listar os usuaris da base
+     * @version 1.0.0
+     * @access public
+     * @return array - array com dados de usuarios 
+     */
+    public function listar()
     {
         $banco = new Banco();
+        $funcoes = new Funcoes;
+
+        if ($_SERVER["REQUEST_METHOD"] != "GET") {
+            $funcoes->setStatusCode(405);
+            return [
+                "methods" => [
+                    "GET"
+                ]
+            ];
+        }
 
         return $banco->select([
             "tabela" => "usuario",
@@ -22,16 +38,27 @@ class Usuario
 
     /**
      * Função para cadastrar um novo usuario
+     * @version 1.0.0
+     * @access public
      * @return array ['
      *      "status" => boolean
      *      "msg" => string
      *      "code" => string //codigo da resposta
      * ']
      */
-    function cadastrar()
+    public function cadastrar()
     {
         $banco = new Banco;
         $funcoes = new funcoes();
+
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            $funcoes->setStatusCode(405);
+            return [
+                "methods" => [
+                    "POST"
+                ]
+            ];
+        }
 
         $empty = $funcoes->empty([
             "nome", "sobrenome", "email", "senha"
