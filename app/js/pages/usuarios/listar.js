@@ -66,7 +66,7 @@ function criarLinhaUsuario(usuario) {
                 break;
             case "modificar":
                 let a = document.createElement("a");
-                a.setAttribute("href", "#");
+                a.setAttribute("href", "editar.html?id="+usuario["id"]);
                 let i = document.createElement("i");
                 i.classList.add("bx");
                 i.classList.add("bx-edit-alt");
@@ -81,7 +81,4 @@ function criarLinhaUsuario(usuario) {
     });
 
     document.querySelector("#users-list-datatable tbody").append(tr);
-
-
-    console.log(tr);
 }
