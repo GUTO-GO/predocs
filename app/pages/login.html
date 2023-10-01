@@ -2,172 +2,55 @@
 <html>
 
 <head>
-    <title>Login</title>
-
-    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/extensions/sweetalert2.min.css">
+    <title>Index</title>
+    <link rel="stylesheet" href="/app/css/pages/login.css">
 </head>
 
-<body class="vertical-layout vertical-menu-modern dark-layout 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page blank-page">
-    <!-- BEGIN: Content-->
-    <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
-                <!-- login page start -->
-                <section id="auth-login" class="row flexbox-container">
-                    <div class="col-xl-8 col-11">
-                        <div class="card bg-authentication mb-0">
-                            <div class="row m-0">
-                                <!-- left section-login -->
-                                <div class="col-md-6 col-12 px-0" id="left-section">
-                                    <div class="card disable-rounded-right mb-0 p-2 h-100 d-flex justify-content-center">
-                                        <div class="card-header pb-1">
-                                            <div class="card-title">
-                                                <h4 class="text-center mb-2">Bem vindo de volta</h4>
-                                            </div>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <div class="divider">
-                                                    <div class="divider-text text-uppercase text-muted">
-                                                        <small>Bem vindo ao {{nome}}</small>
-                                                    </div>
-                                                </div>
-                                                <form action="/deslogado/login" method="POST" id="login" novalidate>
-                                                    <div class="form-group mb-50">
-                                                        <label class="text-bold-600" for="email">Email</label>
-                                                        <input 
-                                                            type="email" 
-                                                            class="form-control" 
-                                                            id="email" name="email"
-                                                            placeholder="Endereço de email" 
-                                                            required
-                                                            data-validation-required-message="O campo de email é obrigatório"
-                                                            >
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="text-bold-600"
-                                                            for="senha">Senha</label>
-                                                        <input 
-                                                            type="password" 
-                                                            class="form-control"
-                                                            id="senha" 
-                                                            name="senha" 
-                                                            placeholder="Senha"
-                                                            required
-                                                            data-validation-required-message="O campo de senha é obrigatório"
-                                                            >
-                                                    </div>
-                                                    <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
-                                                        <div class="text-right">
-                                                            <a href="" class="card-link">
-                                                                <small>Esqueceu a senha ?</small>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary glow w-100 position-relative">
-                                                        Login
-                                                        <i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- right section image -->
-                                <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
-                                    <div class="card-content">
-                                        <img class="img-fluid" src="../midia/images/pages/login.png"
-                                            alt="branding logo">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="login-container card">
+                    <h2 class="text-center">Login</h2>
+                    <!-- Adicionar mensagem de erro aqui -->
+                    <div class="alert alert-danger" id="error-message" style="display: none;">
+                        <p>Nome de usuário ou senha inválidos.</p>
                     </div>
-                </section>
-                <!-- login page ends -->
+                    <form>
+                        <div class="form-group">
+                            <label for="username">Usuário</label>
+                            <input type="text" class="form-control" id="username" placeholder="Digite seu usuário">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" placeholder="Digite sua senha">
+                        </div>
+                        <div class="form-group text-center space-between-button">
+                            <button type="submit" class="btn btn-primary wider-button">Entrar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <!-- END: Content-->
 
-    <!-- inicio Framework -->
     <script id="coreJs" src="../core/predocs.js"></script>
     <script type="text/javascript">
-        let app = {
+        const appConfig = {
             componentesBloqueados: ["nav"]
-        }
+        };
 
-        let docs = new Predocs(app);
-
-        let before = () => {
+        const before = () => {
             docs.replaceTextInView("body", docs.getConfig("app"));
         };
-        let after = () => { 
-            docs.form("#login",
-                () => {
-                    $("#left-section").block({
-                        message: '<div class="semibold"><span class="bx bx-revision icon-spin text-left"></span>&nbsp; Carregando ...</div>',
-                        fadeIn: 1000,
-                        fadeOut: 1000,
-                        // timeout: 2000, //unblock after 2 seconds
-                        overlayCSS: {
-                            backgroundColor: "white",
-                            opacity: 0.8,
-                            cursor: 'wait'
-                        },
-                        css: {
-                            border: 0,
-                            padding: '10px 15px',
-                            color: "white",
-                            width: 'auto',
-                            backgroundColor: '#333'
-                        }
-                    });
-                },
-                (resp) => {
-                    $("#left-section").unblock();
-                    if (resp.status) {
-                        window.location.href = "principal.html";
-                    } else {
-                        Swal.fire({
-                            title: "Erro!",
-                            text: "Login ou senha invalidos",
-                            type: "error",
-                            confirmButtonClass: 'btn btn-primary',
-                            buttonsStyling: false,
-                        });
-                    }
-                }
-            );
 
-        };
+        const after = () => { };
 
+        const docs = new Predocs(appConfig);
         docs.init(before, after);
+
     </script>
-    <!-- Fim framework -->
-    
-    <!-- inicio scripts -->
-    <script src="/app/framework/jquery-3.6.0.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/vendors.min.js"></script>
-    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
-    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
-    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
-    <script src="/app/framework/app-assets/js/core/app-menu.js"></script>
-    <script src="/app/framework/app-assets/js/core/app.js"></script>
-    <script src="/app/framework/app-assets/js/scripts/components.js"></script>
-    <!-- fim scripts -->
-
-    <!-- inicio Scripts pagina -->
-    <script src="/app/framework/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/extensions/polyfill.min.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/ui/blockUI.min.js"></script>
-    <!-- Fim Scripts pagina -->
-
 </body>
 
 </html>
