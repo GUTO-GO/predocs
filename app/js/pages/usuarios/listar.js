@@ -1,32 +1,10 @@
 function listarUsuarios() {
     let docs = new Predocs();
 
-    let usuarios = JSON.parse(docs.get("/server/usuario/listar", {}, false));
+    let usuarios = JSON.parse(docs.get("/server/usuario/listar", {}));
 
     usuarios.forEach(usuario => {
         criarLinhaUsuario(usuario);
-    });
-
-    var usersTable;
-    usersTable = $("#users-list-datatable").DataTable({
-        responsive: true,
-        'columnDefs': [
-            {
-                "orderable": false,
-                "targets": [4]
-            }]
-    });
-
-    $("[data-filtro]").on("change", function () {
-        let valores = "";
-        $("[data-filtro]").each(function () {
-            valores += ` ${$(this).val()}`;
-        });
-        usersTable.search(valores).draw();
-    });
-
-    $(".users-list-clear").on("click", function () {
-        usersTable.search("").draw();
     });
 }
 
@@ -51,34 +29,36 @@ function criarLinhaUsuario(usuario) {
 
                 switch (usuario[campo]) {
                     case "ativo":
-                        span.classList.add("badge-light-success");
+                        span.classList.add("bg-success");
                         break;
                     case "inativo":
-                        span.classList.add("badge-light-warning");
+                        span.classList.add("bg-warning");
                         break;
                     case "banido":
-                        span.classList.add("badge-light-danger");
+                        span.classList.add("bg-danger");
                         break;
                 }
 
-                span.innerText = usuario[campo];
+                span.innerText = primeiraLetraMaiuscula(usuario[campo]);
                 td.prepend(span);
                 break;
             case "modificar":
                 let a = document.createElement("a");
                 a.setAttribute("href", "editar.html?id="+usuario["id"]);
-                let i = document.createElement("i");
-                i.classList.add("bx");
-                i.classList.add("bx-edit-alt");
-                a.prepend(i);
+                a.setAttribute("class", "btn btn-primary btn-sm");
+                a.appendChild(document.createTextNode("Editar"));
                 td.prepend(a);
                 break;
             default:
-                td.innerText = usuario[campo];
+                td.innerText = primeiraLetraMaiuscula(usuario[campo]);
         }
 
         tr.append(td);
     });
 
-    document.querySelector("#users-list-datatable tbody").append(tr);
+    document.querySelector("#usuarios tbody").append(tr);
+}
+
+function primeiraLetraMaiuscula(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
