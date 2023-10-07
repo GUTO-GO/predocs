@@ -38,7 +38,7 @@ class Usuario
             ];
         }
 
-        if(empty($id)){
+        if (empty($id)) {
             return $banco->select([
                 "tabela" => "usuario",
                 "campos" => [
@@ -46,8 +46,8 @@ class Usuario
                     "tipo", "criado", "modificado"
                 ],
             ]);
-        }else{
-            if(is_numeric($id)){
+        } else {
+            if (is_numeric($id)) {
                 return $banco->select([
                     "tabela" => "usuario",
                     "campos" => [
@@ -58,7 +58,7 @@ class Usuario
                         "id" => $id
                     ]
                 ])[0];
-            }else{
+            } else {
                 $funcoes->setStatusCode(400);
                 return [
                     "status" => false,
@@ -67,8 +67,6 @@ class Usuario
                 ];
             }
         }
-
-
     }
 
     /**
