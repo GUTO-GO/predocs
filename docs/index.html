@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Página Inicial</title>
+    <title>Index</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <script id="coreJs" src="../core/predocs.js"></script>
+    <script id="coreJs" src="../app/core/predocs.js"></script>
     <script src="../app/framework/showdown_2.1.0.min.js"></script>
     <script type="text/javascript">
         const appConfig = {
@@ -27,9 +27,21 @@
 
         const after = () => {
             const converter = new showdown.Converter();
-            const markdownText = docs.get("/../README.md");
+            const markdownText = docs.get(docs.getParamUrl("page") ?? "index.md");
             const htmlText = converter.makeHtml(markdownText);
             document.getElementById("conteudo").innerHTML = htmlText;
+
+            //substituindo links na versão web
+            let html = document.querySelector("#conteudo").innerHTML;
+            html = html.replace(
+                new RegExp(`/docs/archives/`, "g"),
+                "?page=archives/"
+            );
+            html = html.replace(
+                new RegExp(`/docs/index.md`, "g"),
+                "?page=index.md"
+            );
+            document.querySelector("#conteudo").innerHTML = html;
         };
 
         const docs = new Predocs(appConfig);
