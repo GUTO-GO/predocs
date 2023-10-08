@@ -34,8 +34,8 @@
             //substituindo links na versão web
             let html = document.querySelector("#conteudo").innerHTML;
             html = html.replace(
-                new RegExp(`/docs/archives/`, "g"),
-                "?page=archives/"
+                new RegExp(`/docs/markdown/`, "g"),
+                "?page=markdown/"
             );
             html = html.replace(
                 new RegExp(`/docs/index.md`, "g"),
