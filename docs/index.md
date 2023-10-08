@@ -12,9 +12,12 @@ O Dossier é um sistema web que simplifica o gerenciamento de arquivos via Web.
 - [Instalação](/docs/markdown/docs/instalacao.md)
 - [Contribuição](/docs/markdown/docs/contribuicao.md)
 
-## Endpoints
+## Entidades
 
+- [Usuario](/docs/markdown/endpoints/usuario.md)
 
 ## Erros e Mensagens de Erro
 
-- [Método Não Permitido (Method Not Allowed)](/docs/markdown/errors/method_not_allowed.md)
+- 400 [Requisição Inválida (Bad Request)](/docs/markdown/errors/bad_request.md)
+- 405 [Método Não Permitido (Method Not Allowed)](/docs/markdown/errors/method_not_allowed.md)
+- 409 [Conflito (Conflict)](/docs/markdown/errors/conflict.md)

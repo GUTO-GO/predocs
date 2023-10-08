@@ -24,12 +24,12 @@ class Usuario
      * @param int $id - id do usuario que deseja retornar os dados
      * @return array - array com dados de usuarios 
      */
-    public function listar($id)
+    public function listar($id, $interno = false)
     {
         $banco = new Banco();
         $funcoes = new Funcoes;
 
-        if ($_SERVER["REQUEST_METHOD"] != "GET") {
+        if ($_SERVER["REQUEST_METHOD"] != "GET" && !$interno) {
             $funcoes->setStatusCode(405);
             return [
                 "methods" => [
@@ -88,9 +88,12 @@ class Usuario
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
             $funcoes->setStatusCode(405);
             return [
-                "methods" => [
-                    "POST"
-                ]
+                "status"=> false,
+                "http_status_code"=> 405,
+                "message"=> "Método de requisição inválido",
+                "description"=> "O método de requisição utilizado não está implantado para esta função",
+                "allowed_methods"=> ["POST"],
+                "docs" => $funcoes->getLinksDocs()
             ];
         }
 
@@ -102,8 +105,10 @@ class Usuario
             $funcoes->setStatusCode(400);
             return [
                 "status" => false,
-                "code" => "campos",
-                "msg" => $empty["msg"]
+                "http_status_code" => 400,
+                "message" => "Dados obrigatorios não enviados",
+                "description" => $empty["msg"],
+                "docs" => $funcoes->getLinksDocs()
             ];
         }
 
@@ -111,8 +116,10 @@ class Usuario
             $funcoes->setStatusCode(400);
             return [
                 "status" => false,
-                "code" => "email",
-                "msg" => "O endereço de email não é valido"
+                "http_status_code" => 400,
+                "message" => "O endereço de email invalido",
+                "description" => "O endereço de email não é valido para ser cadastrado no sistema",
+                "docs" => $funcoes->getLinksDocs()
             ];
         }
 
@@ -127,12 +134,14 @@ class Usuario
             $funcoes->setStatusCode(409);
             return [
                 "status" => false,
-                "code" => "email",
-                "msg" => "O email já está cadastrado"
+                "http_status_code" => 409,
+                "message" => "Usuário já cadastrado",
+                "description" => "O endereço de email fornecido para cadastro já existe na base de dados",
+                "docs" => $funcoes->getLinksDocs()
             ];
         }
 
-        $banco->insert([
+        $id = $banco->insert([
             "nome" => $_POST["nome"] . " " . $_POST["sobrenome"],
             "email" => $_POST["email"],
             "senha" => hash('sha512', $_POST["senha"]),
@@ -142,8 +151,11 @@ class Usuario
 
         return [
             "status" => true,
-            "code" => "sucesso",
-            "msg" => "cadastro efetuado com sucesso"
+            "http_status_code" => 200,
+            "message" => "Usuário Cadastrado",
+            "description" => "O cadastro do usuário foi concluido com exito",
+            "data" => $this->listar($id, true),
+            "docs" => $funcoes->getLinksDocs()
         ];
     }
 
