@@ -1,259 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
-    <title>Usuarios</title>
-
-    <!-- Inicio Style da pagina -->
-    <link rel="stylesheet" type="text/css"
-        href="/app/framework/app-assets/css/plugins/forms/validation/form-validation.css">
-    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/forms/select/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/pickers/pickadate/pickadate.css">
-    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="/app/framework/app-assets/vendors/css/extensions/sweetalert2.min.css">
-    <link rel="stylesheet" type="text/css" href="/app/css/pages/usuarios/usuario.css">
-    <!-- Fim Style da pagina -->
-
+    <title>Editar usuário</title>
 </head>
 
-<body
-    class="vertical-layout dark-layout content-left-sidebar navbar-sticky footer-static pace-done menu-hide vertical-overlay-menu"
-    data-layout="dark-layout" data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar">
-
-    <!-- BEGIN: Content-->
-    <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
-                <!-- users edit start -->
-                <section class="users-edit">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <ul class="nav nav-tabs mb-2" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center active" id="account-tab"
-                                            data-toggle="tab" href="#account" aria-controls="account" role="tab"
-                                            aria-selected="true">
-                                            <i class="bx bx-user mr-25"></i>
-                                            <span class="d-none d-sm-block">Conta</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" id="permission-tab"
-                                            data-toggle="tab" href="#permission" aria-controls="permission" role="tab"
-                                            aria-selected="false">
-                                            <i class="bx bx-info-circle mr-25"></i>
-                                            <span class="d-none d-sm-block">Permissão</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane active fade show" id="account" aria-labelledby="account-tab"
-                                        role="tabpanel">
-                                        <!-- Editar foto do usuario start -->
-                                        <div class="media mb-2">
-                                            <a class="mr-2" href="#">
-                                                <img src="../../midia/images/portrait/small/avatar-s-26.jpg"
-                                                    alt="users avatar" class="users-avatar-shadow rounded-circle"
-                                                    height="64" width="64">
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Avatar</h4>
-                                                <div class="col-12 px-0 d-flex">
-                                                    <a href="#" class="btn btn-sm btn-light-secondary">Reset</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Editar foto do usuario ends -->
-                                        <!-- Dados da conta start -->
-                                        <form action="/usuario/atualizar/" metodo="PATCH" id="editarDados" novalidate>
-                                            <div class="row">
-                                                <div class="col-12 col-sm-6">
-                                                    <div class="form-group">
-                                                        <div class="controls">
-                                                            <label>Nome</label>
-                                                            <input type="text" class="form-control" name="nome"
-                                                                placeholder="Nome" value="" required
-                                                                data-validation-required-message="O nome é obrigatorio">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="controls">
-                                                            <label>E-mail</label>
-                                                            <input type="email" class="form-control" name="email"
-                                                                placeholder="Email" value="" required
-                                                                data-validation-required-message="O email é obrigatorio">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Tipo</label>
-                                                        <select class="form-control" name="tipo">
-                                                            <option value="usuario">Usuario</option>
-                                                            <option value="administrador">Administrador</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Status</label>
-                                                        <select class="form-control" name="status">
-                                                            <option value="ativo">Ativo</option>
-                                                            <option value="inativo">Inativo</option>
-                                                            <option value="banido">Banido</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                                                    <button type="submit"
-                                                        class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">
-                                                        Salvar alterações
-                                                    </button>
-                                                    <button type="reset" class="btn btn-light">
-                                                        Cancelar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- Dados da conta ends -->
-                                    </div>
-                                    <div class="tab-pane fade show" id="permission" aria-labelledby="permission-tab"
-                                        role="tabpanel">
-                                        <!-- users edit Info form start -->
-                                        <form novalidate>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="table-responsive">
-                                                        <table class="table mt-1">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Modulos</th>
-                                                                    <th>Visualizar</th>
-                                                                    <th>Editar</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Usuarios</td>
-                                                                    <td>
-                                                                        <div class="checkbox">
-                                                                            <input type="checkbox" id="users-checkbox1"
-                                                                                class="checkbox-input" checked>
-                                                                            <label for="users-checkbox1"></label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="checkbox">
-                                                                            <input type="checkbox" id="users-checkbox2"
-                                                                                class="checkbox-input">
-                                                                            <label for="users-checkbox2"></label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Arquivos</td>
-                                                                    <td>
-                                                                        <div class="checkbox">
-                                                                            <input type="checkbox" id="users-checkbox5"
-                                                                                class="checkbox-input">
-                                                                            <label for="users-checkbox5"></label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="checkbox">
-                                                                            <input type="checkbox" id="users-checkbox6"
-                                                                                class="checkbox-input" checked>
-                                                                            <label for="users-checkbox6"></label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                                                    <button type="submit"
-                                                        class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">
-                                                        Salvar alterações
-                                                    </button>
-                                                    <button type="reset" class="btn btn-light">
-                                                        Cancelar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- users edit Info form ends -->
-                                    </div>
-                                </div>
-                            </div>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body" id="user-data">
+                <h1 class="card-title">Editar usuários</h1>
+                <form id="edit-form" action="/usuario/atualizar/" metodo="PATCH">
+                    <div class="row">
+                        <div class="mb-3 col-md-6 col-lg-4">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" name="nome" class="form-control" id="nome" placeholder="Digite seu nome">
+                        </div>
+                        <div class="mb-3 col-md-6 col-lg-4">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" id="email"
+                                placeholder="Digite seu email">
+                        </div>
+                        <div class="mb-3 col-md-6 col-lg-4">
+                            <label for="senha" class="form-label">Alterar senha</label>
+                            <input type="password" name="senha" class="form-control" id="senha"
+                                placeholder="Digite a nova senha">
+                        </div>
+                        <div class="mb-3 col-md-6 col-lg-4">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <select name="tipo" class="form-select" id="tipo">
+                            </select>
+                        </div>
+                        <div class="mb-3 col-md-6 col-lg-4">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" class="form-select" id="status">
+                            </select>
                         </div>
                     </div>
-                </section>
-                <!-- users edit ends -->
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- END: Content-->
 
-    <!-- inicio Framework -->
     <script id="coreJs" src="../../core/predocs.js"></script>
-    <script type="text/javascript">
-        let app = {
-            componentesBloqueados: [],
-        }
-
-        let docs = new Predocs(app);
-
-        let before = () => { docs.replaceTextInView("body", docs.getConfig("app")); };
-        let after = () => {
-            let usuarioId = docs.getParamUrl("id");
-            let usuario = docs.get("/server/usuario/listar/" + usuarioId);
-            console.log(usuario);
-
-            let form = document.querySelector("#editarDados");
-            form.setAttribute("action", form.getAttribute("action") + usuarioId);
-
-            docs.form("#editarDados",
-                () => {
-                    return true;
-                },
-                (resp) => {
-                    console.log(resp);
-                }
-            );
-        };
-
-        docs.init(before, after);
-    </script>
-    <!-- Fim framework -->
-
-    <!-- inicio scripts -->
-    <script src="/app/framework/jquery-3.6.0.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/vendors.min.js"></script>
-    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
-    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
-    <script src="/app/framework/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
-    <script src="/app/framework/app-assets/js/core/app-menu.js"></script>
-    <script src="/app/framework/app-assets/js/core/app.js"></script>
-    <script src="/app/framework/app-assets/js/scripts/components.js"></script>
-    <!-- fim scripts -->
-
-
-    <!-- Inicio Scripts da pagina -->
-    <script src="/app/framework/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/extensions/polyfill.min.js"></script>
-    <script src="/app/framework/app-assets/vendors/js/ui/blockUI.min.js"></script>
-    <!-- Fim Scripts da pagina -->
-
+    <script src="../../js/pages/usuarios/editar.js"></script>
 </body>
 
 </html>

@@ -44,7 +44,7 @@ function autenticaUsuario($dadosPost = false)
 
     //caso usuario exista
     if ($usuario) {
-        return $usuario;
+        return $usuario[0];
     } else {
         return false;
     }
