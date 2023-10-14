@@ -123,13 +123,18 @@ class Usuario
             "tipo" => "usuario"
         ], "usuario");
 
-        return returnData("success", [
-            "message" => "Usuário Cadastrado",
-            "description" => "O cadastro do usuário foi concluído com sucesso",
-            "data" => [
-                "usuario" => $this->listar($id, true),
-            ],
-        ]);
+        $dataUsuario = $this->listar($id, true);
+        if ($dataUsuario["status"]) {
+            return returnData("success", [
+                "message" => "Usuário Cadastrado",
+                "description" => "O cadastro do usuário foi concluído com sucesso",
+                "data" => [
+                    "usuario" => $dataUsuario["data"]["usuario"],
+                ],
+            ]);
+        } else {
+            return $dataUsuario;
+        }
     }
 
     /**
@@ -153,73 +158,74 @@ class Usuario
 
     /**
      * Função para atualizar dados de um usuario
-     * @version 1.0.0
+     * @version 2.0.0
      * @access public
      * @method PUT|PATCH
      * @return array
      */
     public function atualizar($id = 0)
     {
-        $funcoes = new Funcoes;
-        switch ($_SERVER["REQUEST_METHOD"]) {
-            case "PUT":
-                return $this->atualizar_PUT($id);
-                break;
-            case "PATCH":
-                return $this->atualizar_PATCH($id);
-                break;
-            default:
-                $funcoes->setStatusCode(405);
-                return [
-                    "methods" => [
-                        "PUT",
-                        "PATCH"
-                    ]
-                ];
-                break;
+        // Validação da requisição
+        $validationResult = validateRequest(
+            allowedMethods: ["PUT", "PATCH"],
+            auth: true
+        );
+        if ($validationResult["error"]) {
+            return $validationResult["data"];
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
+            return $this->atualizarPUT($id);
+        } elseif ($_SERVER["REQUEST_METHOD"] == "PATCH") {
+            return $this->atualizarPATCH($id);
         }
     }
 
     /**
      * Atualiza todos os dados de um usuario
-     * @version 1.0.0
+     * @version 2.0.0
      * @access private
      * @method PUT
      * @return array
      */
-    private function atualizar_PUT($id)
+    private function atualizarPUT($id)
     {
-        $funcoes = new funcoes();
-        $banco = new banco();
-
-        //Valida se os campos estão preenchidos
-        $empty = $funcoes->empty([
-            "nome", "email", "senha", "status", "tipo"
-        ]);
-        if ($empty["status"]) {
-            $funcoes->setStatusCode(400);
-            return [
-                "status" => false,
-                "code" => "campos",
-                "msg" => $empty["msg"]
-            ];
+        // Validação da requisição
+        $validationResult = validateRequest(
+            allowedMethods: ["PUT"],
+            requiredFields: ["nome", "email", "senha", "status", "tipo"],
+            auth: true
+        );
+        if ($validationResult["error"]) {
+            return $validationResult["data"];
         }
 
-        return $this->atualizar_PATCH($id);
+        return $this->atualizarPATCH($id, true);
     }
 
     /**
      * Atualiza alguns dados de um usuario
-     * @version 1.0.0
+     * @version 2.0.0
      * @access private
      * @method PUT
      * @return array
      */
-    private function atualizar_PATCH($id)
+    private function atualizarPATCH($id, $interno = false)
     {
+        if (!$interno) {
+            // Validação da requisição
+            $validationResult = validateRequest(
+                allowedMethods: ["PATCH"],
+                auth: true
+            );
+            if ($validationResult["error"]) {
+                return $validationResult["data"];
+            }
+        }
+
+        //inicia variaveis
         $dados = $_POST;
         $salvar = [];
-        $funcoes = new Funcoes;
         $banco = new Banco;
 
         //Valida se o campo nome está correto
@@ -237,13 +243,10 @@ class Usuario
             if (in_array($dados["status"], $this->options["status"])) {
                 $salvar["status"] = $dados["status"];
             } else {
-                $funcoes->setStatusCode(400);
-                return [
-                    "status" => false,
-                    "code" => "status",
-                    "msg" => "O status atual não é valido",
-                    "opcoes" => $this->options["status"]
-                ];
+                return returnData("invalid_fields", [
+                    "message" => "Status invalido",
+                    "description" => "O status atual não é valido",
+                ]);
             }
         }
 
@@ -252,13 +255,10 @@ class Usuario
             if (in_array($dados["tipo"], $this->options["tipo"])) {
                 $salvar["tipo"] = $dados["tipo"];
             } else {
-                $funcoes->setStatusCode(400);
-                return [
-                    "status" => false,
-                    "code" => "tipo",
-                    "msg" => "O tipo de usuario não é valido",
-                    "opcoes" => $this->options["tipo"]
-                ];
+                return returnData("invalid_fields", [
+                    "message" => "Tipo invalido",
+                    "description" => "O Tipo atual não é valido",
+                ]);
             }
         }
 
@@ -266,12 +266,10 @@ class Usuario
         if (!empty($dados["email"])) {
             //Valida se o email é valido
             if (!validaEmail($dados["email"])) {
-                $funcoes->setStatusCode(400);
-                return [
-                    "status" => false,
-                    "code" => "email",
-                    "msg" => "O endereço de email não é valido"
-                ];
+                return returnData("invalid_fields", [
+                    "message" => "Email invalido",
+                    "description" => "O email atual não é valido",
+                ]);
             }
 
             //Pesquisa novo email na base
@@ -280,12 +278,10 @@ class Usuario
                 "where" => "email = '" . $dados["email"] . "' AND id NOT IN($id)"
             ]);
             if (!empty($usuario)) {
-                $funcoes->setStatusCode(409);
-                return [
-                    "status" => false,
-                    "code" => "email",
-                    "msg" => "O email já está cadastrado em outro usuario"
-                ];
+                return returnData("conflict", [
+                    "message" => "email já cadastrado",
+                    "description" => "O endereço de email fornecido existe na base de dados",
+                ]);
             }
 
             $salvar["email"] = $dados["email"];
@@ -294,15 +290,20 @@ class Usuario
         $banco->update(
             "usuario",
             $salvar,
-            [
-                "id" => $id
-            ]
+            ["id" => $id]
         );
 
-        return [
-            "status" => true,
-            "code" => "sucesso",
-            "msg" => "Dados atualizado com sucesso"
-        ];
+        $dataUsuario = $this->listar($id, true);
+        if ($dataUsuario["status"]) {
+            return returnData("success", [
+                "message" => "Usuário Editado",
+                "description" => "Os dados do usuário foram atualizados com sucesso",
+                "data" => [
+                    "usuario" => $dataUsuario["data"]["usuario"],
+                ],
+            ]);
+        } else {
+            return $dataUsuario;
+        }
     }
 }
