@@ -14,8 +14,10 @@ class App
             return $validationResult["data"];
         }
 
-        if (autenticaUsuario(true)) {
-            $usuario = $_SESSION["dataUsuario"];
+        $usuario = autenticaUsuario(true);
+        if ($usuario) {
+            $_SESSION["usuario"]["data"] = $usuario;
+            $_SESSION["usuario"]["logado"] = true;
             unset($usuario["senha"]);
             return returnData("success", [
                 "message" => "Login feito",

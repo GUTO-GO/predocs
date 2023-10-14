@@ -1,11 +1,13 @@
 function listarUsuarios() {
     let docs = new Predocs();
 
-    let usuarios = JSON.parse(docs.get("/server/usuario/listar", {}));
+    let dados = JSON.parse(docs.get("/server/usuario/listar", {}));
 
-    usuarios.forEach(usuario => {
-        criarLinhaUsuario(usuario);
-    });
+    if (dados.status) {
+        dados.data.usuarios.forEach(usuario => {
+            criarLinhaUsuario(usuario);
+        });
+    }
 }
 
 function criarLinhaUsuario(usuario) {

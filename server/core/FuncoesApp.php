@@ -20,6 +20,8 @@ function autenticaUsuario($dadosPost = false)
         $password = $_SERVER['PHP_AUTH_PW'];
     } elseif (isset($_SERVER['HTTP_AUTHORIZATION']) && preg_match('/^basic/i', $_SERVER['HTTP_AUTHORIZATION'])) {
         list($username, $password) = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
+    } elseif (isset($_SESSION["usuario"]) && isset($_SESSION["usuario"]["logado"])) {
+        return $_SESSION["usuario"]["data"];
     }
 
     if (empty($username) || empty($password)) {
@@ -42,15 +44,10 @@ function autenticaUsuario($dadosPost = false)
 
     //caso usuario exista
     if ($usuario) {
-        $_SESSION["dataUsuario"] = $usuario[0];
-        $_SESSION["login"] = true;
-        return true;
+        return $usuario;
+    } else {
+        return false;
     }
-
-    //caso usuario não exista
-    unset($_SESSION["dataUsuario"]);
-    unset($_SESSION["login"]);
-    return false;
 }
 
 function returnData($tipo, $dados = null)

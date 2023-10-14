@@ -21,45 +21,53 @@ class Usuario
      */
     public function listar($id, $interno = false)
     {
-        $banco = new Banco();
-        $funcoes = new Funcoes;
-
-        if ($_SERVER["REQUEST_METHOD"] != "GET" && !$interno) {
-            $funcoes->setStatusCode(405);
-            return [
-                "methods" => [
-                    "GET"
-                ]
-            ];
+        // Validação da requisição
+        if (!$interno) {
+            $validationResult = validateRequest(
+                allowedMethods: ["GET"],
+                auth: true
+            );
+            if ($validationResult["error"]) {
+                return $validationResult["data"];
+            }
         }
 
+        //Inicia variaveis
+        $banco = new Banco();
+        $dados = [
+            "tabela" => "usuario",
+            "campos" => [
+                "id", "nome", "email", "status",
+                "tipo", "criado", "modificado"
+            ]
+        ];
+
+        //valida se veio id
         if (empty($id)) {
-            return $banco->select([
-                "tabela" => "usuario",
-                "campos" => [
-                    "id", "nome", "email", "status",
-                    "tipo", "criado", "modificado"
+            //Lista os usuarios
+            return returnData("success", [
+                "message" => "Dados listados",
+                "description" => "Lista de todos os usuarios da plataforma",
+                "data" => [
+                    "usuarios" => $banco->select($dados),
                 ],
             ]);
         } else {
+            //Pesquisa usuario por id
             if (is_numeric($id)) {
-                return $banco->select([
-                    "tabela" => "usuario",
-                    "campos" => [
-                        "id", "nome", "email", "status",
-                        "tipo", "criado", "modificado"
+                $dados["where"] = ["id" => $id];
+                return returnData("success", [
+                    "message" => "Dados listados",
+                    "description" => "Dados do usuario com o id igual a $id",
+                    "data" => [
+                        "usuario" => $banco->select($dados)[0],
                     ],
-                    "where" => [
-                        "id" => $id
-                    ]
-                ])[0];
+                ]);
             } else {
-                $funcoes->setStatusCode(400);
-                return [
-                    "status" => false,
-                    "code" => "id",
-                    "msg" => "O id enviado não é valido!"
-                ];
+                return returnData("invalid_fields", [
+                    "message" => "O id enviado não é valido",
+                    "description" => "O campo 'id' enviado não é formato numérico",
+                ]);
             }
         }
     }
