@@ -134,14 +134,17 @@ class Usuario
 
     /**
      * Lista dados do usuario logado
+     * @version 1.0.0
+     * @access public
+     * @method GET
      */
     public function eu()
     {
-        if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["logado"]){
+        if (isset($_SESSION["usuario"]) && $_SESSION["usuario"]["logado"]) {
             $id = $_SESSION["usuario"]["data"]["id"];
-        }else{
+        } else {
             $usuario = autenticaUsuario();
-            if($usuario){
+            if ($usuario) {
                 $id = $usuario["id"];
             }
         }
