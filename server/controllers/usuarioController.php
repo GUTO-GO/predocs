@@ -11,118 +11,95 @@ class Usuario
         ]
     ];
 
-    public function __autorizado($metodo)
-    {
-        return true;
-    }
-
     /**
      * Função para Listar os usuaris da base
      * @version 2.0.0
      * @access public
      * @method GET
      * @param int $id - id do usuario que deseja retornar os dados
-     * @return array - array com dados de usuarios 
+     * @return array - array com dados de usuarios
      */
     public function listar($id, $interno = false)
     {
-        $banco = new Banco();
-        $funcoes = new Funcoes;
-
-        if ($_SERVER["REQUEST_METHOD"] != "GET" && !$interno) {
-            $funcoes->setStatusCode(405);
-            return [
-                "methods" => [
-                    "GET"
-                ]
-            ];
+        // Validação da requisição
+        if (!$interno) {
+            $validationResult = validateRequest(
+                allowedMethods: ["GET"],
+                auth: true
+            );
+            if ($validationResult["error"]) {
+                return $validationResult["data"];
+            }
         }
 
+        //Inicia variaveis
+        $banco = new Banco();
+        $dados = [
+            "tabela" => "usuario",
+            "campos" => [
+                "id", "nome", "email", "status",
+                "tipo", "criado", "modificado"
+            ]
+        ];
+
+        //valida se veio id
         if (empty($id)) {
-            return $banco->select([
-                "tabela" => "usuario",
-                "campos" => [
-                    "id", "nome", "email", "status",
-                    "tipo", "criado", "modificado"
+            //Lista os usuarios
+            return returnData("success", [
+                "message" => "Dados listados",
+                "description" => "Lista de todos os usuarios da plataforma",
+                "data" => [
+                    "usuarios" => $banco->select($dados),
                 ],
             ]);
         } else {
+            //Pesquisa usuario por id
             if (is_numeric($id)) {
-                return $banco->select([
-                    "tabela" => "usuario",
-                    "campos" => [
-                        "id", "nome", "email", "status",
-                        "tipo", "criado", "modificado"
+                $dados["where"] = ["id" => $id];
+                return returnData("success", [
+                    "message" => "Dados listados",
+                    "description" => "Dados do usuario com o id igual a $id",
+                    "data" => [
+                        "usuario" => $banco->select($dados)[0],
                     ],
-                    "where" => [
-                        "id" => $id
-                    ]
-                ])[0];
+                ]);
             } else {
-                $funcoes->setStatusCode(400);
-                return [
-                    "status" => false,
-                    "code" => "id",
-                    "msg" => "O id enviado não é valido!"
-                ];
+                return returnData("invalid_fields", [
+                    "message" => "O id enviado não é valido",
+                    "description" => "O campo 'id' enviado não é formato numérico",
+                ]);
             }
         }
     }
 
     /**
      * Função para cadastrar um novo usuario
-     * @version 1.0.0
+     * @version 2.0.0
      * @access public
      * @method POST
-     * @return array ['
-     *      "status" => boolean
-     *      "msg" => string
-     *      "code" => string //codigo da resposta
-     * ']
      */
     public function cadastrar()
     {
-        $banco = new Banco;
-        $funcoes = new funcoes();
-
-        if ($_SERVER["REQUEST_METHOD"] != "POST") {
-            $funcoes->setStatusCode(405);
-            return [
-                "status"=> false,
-                "http_status_code"=> 405,
-                "message"=> "Método de requisição inválido",
-                "description"=> "O método de requisição utilizado não está implantado para esta função",
-                "allowed_methods"=> ["POST"],
-                "docs" => $funcoes->getLinksDocs()
-            ];
+        // Validação da requisição
+        $validationResult = validateRequest(
+            allowedMethods: ["POST"],
+            requiredFields: ["nome", "sobrenome", "email", "senha"],
+            auth: true
+        );
+        if ($validationResult["error"]) {
+            return $validationResult["data"];
         }
 
-        $empty = $funcoes->empty([
-            "nome", "sobrenome", "email", "senha"
-        ]);
-
-        if ($empty["status"]) {
-            $funcoes->setStatusCode(400);
-            return [
-                "status" => false,
-                "http_status_code" => 400,
-                "message" => "Dados obrigatorios não enviados",
-                "description" => $empty["msg"],
-                "docs" => $funcoes->getLinksDocs()
-            ];
-        }
-
+        // Validação do email
         if (!validaEmail($_POST["email"])) {
-            $funcoes->setStatusCode(400);
-            return [
-                "status" => false,
-                "http_status_code" => 400,
-                "message" => "O endereço de email invalido",
-                "description" => "O endereço de email não é valido para ser cadastrado no sistema",
-                "docs" => $funcoes->getLinksDocs()
-            ];
+            return returnData("invalid_fields", [
+                "message" => "O endereço de email é inválido",
+                "description" => "O endereço de email não é válido para ser cadastrado no sistema",
+            ]);
         }
 
+        // Verifica se o usuário já existe
+        $banco = new Banco;
         $usuario = $banco->select([
             "tabela" => "usuario",
             "igual" => [
@@ -131,16 +108,13 @@ class Usuario
         ]);
 
         if (!empty($usuario)) {
-            $funcoes->setStatusCode(409);
-            return [
-                "status" => false,
-                "http_status_code" => 409,
+            return returnData("conflict", [
                 "message" => "Usuário já cadastrado",
                 "description" => "O endereço de email fornecido para cadastro já existe na base de dados",
-                "docs" => $funcoes->getLinksDocs()
-            ];
+            ]);
         }
 
+        // Inserção do usuário
         $id = $banco->insert([
             "nome" => $_POST["nome"] . " " . $_POST["sobrenome"],
             "email" => $_POST["email"],
@@ -149,15 +123,15 @@ class Usuario
             "tipo" => "usuario"
         ], "usuario");
 
-        return [
-            "status" => true,
-            "http_status_code" => 200,
+        return returnData("success", [
             "message" => "Usuário Cadastrado",
-            "description" => "O cadastro do usuário foi concluido com exito",
-            "data" => $this->listar($id, true),
-            "docs" => $funcoes->getLinksDocs()
-        ];
+            "description" => "O cadastro do usuário foi concluído com sucesso",
+            "data" => [
+                "usuario" => $this->listar($id, true),
+            ],
+        ]);
     }
+
 
     /**
      * Função para atualizar dados de um usuario

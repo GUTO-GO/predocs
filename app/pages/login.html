@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <title>Index</title>
@@ -13,18 +13,16 @@
             <div class="col-md-6 offset-md-3">
                 <div class="login-container card">
                     <h2 class="text-center">Login</h2>
-                    <!-- Adicionar mensagem de erro aqui -->
-                    <div class="alert alert-danger" id="error-message" style="display: none;">
-                        <p>Nome de usuário ou senha inválidos.</p>
-                    </div>
-                    <form>
+                    <form id="form-login" action="/app/login" metodo="POST">
                         <div class="form-group">
                             <label for="username">Usuário</label>
-                            <input type="text" class="form-control" id="username" placeholder="Digite seu usuário">
+                            <input type="text" name="email" class="form-control" id="username"
+                                placeholder="Digite seu usuário" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Senha</label>
-                            <input type="password" class="form-control" id="password" placeholder="Digite sua senha">
+                            <input type="password" name="senha" class="form-control" id="password"
+                                placeholder="Digite sua senha" required>
                         </div>
                         <div class="form-group text-center space-between-button">
                             <button type="submit" class="btn btn-primary wider-button">Entrar</button>
@@ -45,7 +43,26 @@
             docs.replaceTextInView("body", docs.getConfig("app"));
         };
 
-        const after = () => { };
+        const after = () => {
+            docs.form("#form-login",
+                () => {
+
+                },
+                (resp) => {
+                    let cor;
+                    if (resp.status) {
+                        cor = "#d1e7dd";
+                        window.location.href = "home.html"
+                    } else {
+                        cor = "#f8d7da";
+                    }
+                    return [
+                        resp.description,
+                        cor
+                    ]
+                }
+            );
+        };
 
         const docs = new Predocs(appConfig);
         docs.init(before, after);

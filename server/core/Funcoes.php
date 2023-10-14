@@ -3,7 +3,7 @@
 /**
  * Funções para gerenciamento do framework
  */
-class funcoes
+class Funcoes
 {
 
     /**
@@ -25,7 +25,9 @@ class funcoes
 
         $this->get(predocs: $predocs);
 
-        if (empty($_GET["controller"])) return $this->returnStatusCode(404);
+        if (empty($_GET["controller"])) {
+            return $this->returnStatusCode(404);
+        }
 
         $controller = $this->incluiController(nomeController: $_GET["controller"], predocs: $predocs);
 
@@ -33,8 +35,6 @@ class funcoes
             switch ($controller) {
                 case 404:
                     return $this->returnStatusCode(404);
-                case 401:
-                    return $this->returnStatusCode(401);
                 case 200:
                     if (function_exists($_GET["function"])) {
                         return call_user_func($_GET["function"], $_GET["param1"], $_GET["param2"], $_GET["param3"]);
@@ -79,8 +79,6 @@ class funcoes
         ini_set("display_errors", "1");
 
         session_start();
-
-        return;
     }
 
     /**
@@ -93,7 +91,6 @@ class funcoes
     {
         $json = json_decode(file_get_contents('php://input'), true);
         $_POST = (is_array($json) ? $json : $_POST);
-        return;
     }
 
     /**
@@ -119,18 +116,15 @@ class funcoes
 
         $count = ($predocs) ? 1 : 0;
         foreach ($params as $param) {
-            switch ($param) {
-                case "function":
-                    $retorno[$param] = empty($url[$count]) ? "index" : $url[$count];
-                    break;
-                default:
-                    $retorno[$param] = isset($url[$count]) ? $url[$count] : null;
+            if ($param == "function") {
+                $retorno[$param] = empty($url[$count]) ? "index" : $url[$count];
+            } else {
+                $retorno[$param] = isset($url[$count]) ? $url[$count] : null;
             }
             $count++;
         }
 
         $_GET = $retorno;
-        return;
     }
 
     /**
@@ -142,11 +136,8 @@ class funcoes
      */
     public function returnStatusCode($codigo)
     {
-        $codes = [
-            404 => ["status" => false, "msg" => "A função solicitada não foi encontrada"],
-            401 => ["status" => false, "msg" => "Acesso negado"],
-            500 => ["status" => false, "msg" => "Erro interno"]
-        ];
+        $config = new Config;
+        $codes = $config->getConfig()["messageReturnStatusCode"];
         $codigo = array_key_exists($codigo, $codes) ? $codigo : 500;
         $this->setStatusCode($codigo);
         return $codes[$codigo];
@@ -179,13 +170,7 @@ class funcoes
             return 200;
         }
 
-        $obj = new $nomeController();
-
-        if (method_exists($obj, "__autorizado") && !$obj->__autorizado($_GET["function"])) {
-            return 401;
-        }
-
-        return $obj;
+        return new $nomeController();
     }
 
     /**
@@ -233,11 +218,9 @@ class funcoes
      */
     public function listarArquivosRecursivos(string $pasta): array
     {
-        if (empty($pasta))
+        if (empty($pasta) || !is_dir($pasta)) {
             return [];
-
-        if (!is_dir($pasta))
-            return [];
+        }
 
         $scan = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pasta));
         $arquivos = $retorno = [];
@@ -310,7 +293,9 @@ class funcoes
      */
     public function criaPasta(string $path, int $permission = 0777): bool
     {
-        if (!is_dir($path)) return mkdir($path, $permission, true);
+        if (!is_dir($path)) {
+            return mkdir($path, $permission, true);
+        }
         return false;
     }
 
@@ -320,7 +305,8 @@ class funcoes
      * @access public
      * @return array
      */
-    public function getLinksDocs(){
+    public function getLinksDocs()
+    {
         $config = new Config();
 
         $urls = $config->getConfig()["docs"];
@@ -328,7 +314,7 @@ class funcoes
 
         return [
             "web" => $urls["web"] . $function,
-            "markdown" => $urls["markdown"] . $function 
+            "markdown" => $urls["markdown"] . $function
         ];
     }
 }

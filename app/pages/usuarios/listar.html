@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <title>Usuarios</title>
@@ -18,6 +18,7 @@
         </div>
         <div class="table-responsive">
             <table class="table table-dark table-striped mt-3" id="usuarios">
+                <caption>Listagem de usuários cadastrados na plataforma</caption>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -44,7 +45,7 @@
             docs.replaceTextInView("body", docs.getConfig("app"));
         };
 
-        const after = () => { 
+        const after = () => {
             listarUsuarios();
         };
 
