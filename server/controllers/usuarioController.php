@@ -132,6 +132,21 @@ class Usuario
         ]);
     }
 
+    /**
+     * Lista dados do usuario logado
+     */
+    public function eu()
+    {
+        if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["logado"]){
+            $id = $_SESSION["usuario"]["data"]["id"];
+        }else{
+            $usuario = autenticaUsuario();
+            if($usuario){
+                $id = $usuario["id"];
+            }
+        }
+        return $this->listar($id ?? null);
+    }
 
     /**
      * Função para atualizar dados de um usuario
