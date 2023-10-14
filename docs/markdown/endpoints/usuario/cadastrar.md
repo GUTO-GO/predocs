@@ -52,11 +52,8 @@ Se a solicitação for bem-sucedida, você receberá uma resposta com o status `
 
 ### Erros
 
-Se ocorrerem erros durante o processo de cadastro, você receberá uma resposta com o status de erro apropriado (por exemplo, `400 Bad Request`) e uma mensagem de erro explicativa. Os possíveis erros incluem:
-
-- 405 [Método Não Permitido (Method Not Allowed)](/docs/markdown/errors/method_not_allowed.md)
-- 400 [Requisição Inválida (Bad Request)](/docs/markdown/errors/bad_request.md)
-- 409 [Conflito (Conflict)](/docs/markdown/errors/conflict.md)
+Se ocorrerem erros durante o processo de cadastro, você receberá uma resposta com o status de erro apropriado (por exemplo, `400 Bad Request`) e uma mensagem de erro explicativa.
+Para mais detalhes sobre cada código de erro acese o [**Índice de Mensagens de Erro**](/docs/markdown/errors/index.md).
 
 ---
-[index](/docs/markdown/endpoints/usuario.md)
+[**index**](/docs/markdown/endpoints/usuario.md)
