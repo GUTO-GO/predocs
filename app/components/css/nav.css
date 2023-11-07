@@ -1,5 +1,5 @@
 nav{
-    margin-bottom: 10px;
+    margin-bottom: 1px;
     background-color: var(--cor-fundo-nav) !important;
     color: var(--cor-texto-nav) !important;
 }
@@ -7,4 +7,8 @@ nav{
 nav div .offcanvas{
     background-color: var(--cor-fundo-nav) !important;
     color: var(--cor-texto-nav) !important;
+}
+
+nav a .nav-link {
+    color: var(--cor-texto-nav);
 }

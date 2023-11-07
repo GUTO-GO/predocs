@@ -3,36 +3,38 @@
 
 <head>
     <title>Usuarios</title>
+    <link rel="stylesheet" href="/app/css/pages/usuarios/usuario.css">
 </head>
 
 <body>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-6">
-                <h2>Lista de Usuários</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Lista de Usuários</h1>
+                </div>
+                <div class="col-6 text-end mt-2">
+                    <a href="adicionar.html" class="btn btn-primary">Novo Usuário</a>
+                </div>
             </div>
-            <div class="col-6 text-end">
-                <a href="adicionar.html" class="btn btn-primary">Novo Usuário</a>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped mt-3" id="usuarios">
+                    <caption>Listagem de usuários cadastrados na plataforma</caption>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table table-dark table-striped mt-3" id="usuarios">
-                <caption>Listagem de usuários cadastrados na plataforma</caption>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Tipo</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-
     </div>
 
     <script id="coreJs" src="../../core/predocs.js"></script>
