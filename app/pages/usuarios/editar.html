@@ -3,14 +3,15 @@
 
 <head>
     <title>Editar usuário</title>
+    <link rel="stylesheet" href="/app/css/pages/usuarios/usuario.css">
 </head>
 
 <body>
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body" id="user-data">
-                <h1 class="card-title">Editar usuários</h1>
-                <form id="edit-form" action="/usuario/atualizar/" metodo="PATCH">
+    <div class="card">
+        <div class="card-body" id="user-data">
+            <h1>Editar usuários</h1>
+            <form id="edit-form" action="/usuario/atualizar/" metodo="PATCH">
+                <div class="card">
                     <div class="row">
                         <div class="mb-3 col-md-6 col-lg-4">
                             <label for="nome" class="form-label">Nome</label>
@@ -37,10 +38,11 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Editar</button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Editar</button>
+            </form>
         </div>
+    </div>
     </div>
 
     <script id="coreJs" src="../../core/predocs.js"></script>

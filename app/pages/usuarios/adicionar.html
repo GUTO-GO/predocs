@@ -3,14 +3,15 @@
 
 <head>
     <title>Novo usuário</title>
+    <link rel="stylesheet" href="/app/css/pages/usuarios/usuario.css">
 </head>
 
 <body>
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-body">
-                <h1 class="card-title">Cadastro de Usuários</h1>
-                <form id="cadastro-form" action="/usuario/cadastrar" metodo="POST">
+    <div class="card">
+        <div class="card-body">
+            <h1>Cadastro de Usuários</h1>
+            <form id="cadastro-form" action="/usuario/cadastrar" metodo="POST">
+                <div class="card card-interno">
                     <div class="row">
                         <div class="mb-3 col-md-6 col-lg-4">
                             <label for="nome" class="form-label">Nome</label>
@@ -42,9 +43,9 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form>
         </div>
     </div>
 
@@ -71,13 +72,13 @@
         const after = () => {
             docs.form("#cadastro-form",
                 () => {
-                    
+
                 },
                 (resp) => {
                     let cor;
-                    if(resp.status){
+                    if (resp.status) {
                         cor = "#d1e7dd";
-                    }else{
+                    } else {
                         cor = "#f8d7da";
                     }
                     return [

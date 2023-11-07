@@ -12,19 +12,24 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="login-container card">
-                    <h2 class="text-center">Login</h2>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <img class="img-fluid" src="/app/assets/global/logo.png" alt="">
+                        </div>
+                    </div>
+                    <h2 class="text-center mt-5">Login</h2>
                     <form id="form-login" action="/app/login" metodo="POST">
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label for="username">Usuário</label>
                             <input type="text" name="email" class="form-control" id="username"
                                 placeholder="Digite seu usuário" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label for="password">Senha</label>
                             <input type="password" name="senha" class="form-control" id="password"
                                 placeholder="Digite sua senha" required>
                         </div>
-                        <div class="form-group text-center space-between-button">
+                        <div class="form-group text-center space-between-button mt-4">
                             <button type="submit" class="btn btn-primary wider-button">Entrar</button>
                         </div>
                     </form>
