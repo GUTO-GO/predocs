@@ -18,7 +18,7 @@ class Usuario
      * @param bool $interno Define se a requisição é interna ou não (padrão: false).
      * @return array O resultado da listagem dos usuários.
      */
-    public function listar($id = null, $interno = false)
+    public function listar($id = null, $interno = false): array
     {
         // Validação da requisição
         if (!$interno) {
@@ -229,7 +229,7 @@ class Usuario
      * @param bool $interno Define se a requisição é interna ou não. O valor padrão é false.
      * @return array O resultado da atualização do usuário.
      */
-    private function atualizarPATCH($id, $interno = false)
+    private function atualizarPATCH($id, $interno = false): array
     {
         if (!$interno) {
             // Validação da requisição
