@@ -12,18 +12,17 @@ class Usuario
     ];
 
     /**
-     * Função para Listar os usuaris da base
-     * @version 2.0.0
-     * @access public
-     * @method GET
-     * @param int $id - id do usuario que deseja retornar os dados
-     * @return array - array com dados de usuarios
+     * Função responsável por listar os usuários.
+     *
+     * @param int|null $id O ID do usuário a ser pesquisado (opcional).
+     * @param bool $interno Define se a requisição é interna ou não (padrão: false).
+     * @return array O resultado da listagem dos usuários.
      */
-    public function listar($id, $interno = false)
+    public function listar($id = null, $interno = false)
     {
         // Validação da requisição
         if (!$interno) {
-            $validationResult = validateRequest(
+            $validationResult = FuncoesApp::validateRequest(
                 allowedMethods: ["GET"],
                 auth: true
             );
@@ -32,7 +31,7 @@ class Usuario
             }
         }
 
-        //Inicia variaveis
+        // Inicia variáveis
         $banco = new Banco();
         $dados = [
             "tabela" => "usuario",
@@ -42,46 +41,53 @@ class Usuario
             ]
         ];
 
-        //valida se veio id
         if (empty($id)) {
-            //Lista os usuarios
-            return returnData("success", [
+            // Lista todos os usuários
+            $usuarios = $banco->select($dados);
+            return FuncoesApp::returnData("success", [
                 "message" => "Dados listados",
-                "description" => "Lista de todos os usuarios da plataforma",
+                "description" => "Lista de todos os usuários da plataforma",
                 "data" => [
-                    "usuarios" => $banco->select($dados),
+                    "usuarios" => $usuarios,
                 ],
             ]);
         } else {
-            //Pesquisa usuario por id
+            // Pesquisa usuário por ID
             if (is_numeric($id)) {
                 $dados["where"] = ["id" => $id];
-                return returnData("success", [
-                    "message" => "Dados listados",
-                    "description" => "Dados do usuario com o id igual a $id",
-                    "data" => [
-                        "usuario" => $banco->select($dados)[0],
-                    ],
-                ]);
+                $usuario = $banco->select($dados)[0];
+                if ($usuario) {
+                    return FuncoesApp::returnData("success", [
+                        "message" => "Dados listados",
+                        "description" => "Dados do usuário com o ID igual a $id",
+                        "data" => [
+                            "usuario" => $usuario,
+                        ],
+                    ]);
+                } else {
+                    return FuncoesApp::returnData("not_found", [
+                        "message" => "Usuário não encontrado",
+                        "description" => "Não foi encontrado nenhum usuário com o ID igual a $id",
+                    ]);
+                }
             } else {
-                return returnData("invalid_fields", [
-                    "message" => "O id enviado não é valido",
-                    "description" => "O campo 'id' enviado não é formato numérico",
+                return FuncoesApp::returnData("invalid_fields", [
+                    "message" => "O ID enviado não é válido",
+                    "description" => "O campo 'id' enviado não está no formato numérico",
                 ]);
             }
         }
     }
 
     /**
-     * Função para cadastrar um novo usuario
-     * @version 2.0.0
-     * @access public
-     * @method POST
+     * Método responsável por cadastrar um novo usuário.
+     *
+     * @return array Retorna um array contendo os dados do usuário cadastrado ou uma mensagem de erro.
      */
-    public function cadastrar()
+    public function cadastrar(): array
     {
         // Validação da requisição
-        $validationResult = validateRequest(
+        $validationResult = FuncoesApp::validateRequest(
             allowedMethods: ["POST"],
             requiredFields: ["nome", "sobrenome", "email", "senha"],
             auth: true
@@ -90,9 +96,15 @@ class Usuario
             return $validationResult["data"];
         }
 
+        // Sanitize input
+        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $sobrenome = filter_input(INPUT_POST, 'sobrenome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $senha = filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
         // Validação do email
-        if (!validaEmail($_POST["email"])) {
-            return returnData("invalid_fields", [
+        if (!FuncoesApp::isEmailValid($email)) {
+            return FuncoesApp::returnData("invalid_fields", [
                 "message" => "O endereço de email é inválido",
                 "description" => "O endereço de email não é válido para ser cadastrado no sistema",
             ]);
@@ -103,12 +115,12 @@ class Usuario
         $usuario = $banco->select([
             "tabela" => "usuario",
             "igual" => [
-                "email" => $_POST["email"]
+                "email" => $email
             ]
         ]);
 
         if (!empty($usuario)) {
-            return returnData("conflict", [
+            return FuncoesApp::returnData("conflict", [
                 "message" => "Usuário já cadastrado",
                 "description" => "O endereço de email fornecido para cadastro já existe na base de dados",
             ]);
@@ -116,16 +128,16 @@ class Usuario
 
         // Inserção do usuário
         $id = $banco->insert([
-            "nome" => $_POST["nome"] . " " . $_POST["sobrenome"],
-            "email" => $_POST["email"],
-            "senha" => hash('sha512', $_POST["senha"]),
+            "nome" => $nome . " " . $sobrenome,
+            "email" => $email,
+            "senha" => hash('sha512', $senha),
             "status" => "ativo",
             "tipo" => "usuario"
         ], "usuario");
 
         $dataUsuario = $this->listar($id, true);
         if ($dataUsuario["status"]) {
-            return returnData("success", [
+            return FuncoesApp::returnData("success", [
                 "message" => "Usuário Cadastrado",
                 "description" => "O cadastro do usuário foi concluído com sucesso",
                 "data" => [
@@ -138,35 +150,38 @@ class Usuario
     }
 
     /**
-     * Lista dados do usuario logado
-     * @version 1.0.0
-     * @access public
-     * @method GET
+     * Retorna os dados do usuário atual.
+     *
+     * Verifica se o usuário está logado na sessão e, caso esteja, retorna o ID do usuário.
+     * Caso contrário, autentica o usuário e retorna o ID se a autenticação for bem-sucedida.
+     *
+     * @return array|null Os dados do usuário atual ou null se não estiver logado.
      */
-    public function eu()
+    public function eu(?int $id = null): array|null
     {
-        if (isset($_SESSION["usuario"]) && $_SESSION["usuario"]["logado"]) {
-            $id = $_SESSION["usuario"]["data"]["id"];
-        } else {
-            $usuario = autenticaUsuario();
-            if ($usuario) {
-                $id = $usuario["id"];
-            }
+        if ($id !== null) {
+            return $this->listar($id);
         }
-        return $this->listar($id ?? null);
+
+        $usuario = FuncoesApp::autenticaUsuario();
+        if ($usuario) {
+            $id = $usuario["id"];
+            return $this->listar($id);
+        }
+
+        return null;
     }
 
     /**
-     * Função para atualizar dados de um usuario
-     * @version 2.0.0
-     * @access public
-     * @method PUT|PATCH
-     * @return array
+     * Método responsável por atualizar um usuário.
+     *
+     * @param int $id O ID do usuário a ser atualizado.
+     * @return array O resultado da atualização do usuário.
      */
-    public function atualizar($id = 0)
+    public function atualizar($id = 0): array
     {
         // Validação da requisição
-        $validationResult = validateRequest(
+        $validationResult = FuncoesApp::validateRequest(
             allowedMethods: ["PUT", "PATCH"],
             auth: true
         );
@@ -174,28 +189,32 @@ class Usuario
             return $validationResult["data"];
         }
 
-        if ($_SERVER["REQUEST_METHOD"] == "PUT") {
+        $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
+        if ($requestMethod == "PUT") {
             return $this->atualizarPUT($id);
-        } elseif ($_SERVER["REQUEST_METHOD"] == "PATCH") {
+        } elseif ($requestMethod == "PATCH") {
             return $this->atualizarPATCH($id);
         }
     }
 
     /**
-     * Atualiza todos os dados de um usuario
-     * @version 2.0.0
-     * @access private
-     * @method PUT
-     * @return array
+     * Método privado para atualizar um usuário através do método PUT.
+     *
+     * @param int $id O ID do usuário a ser atualizado.
+     * @return array|null Os dados atualizados do usuário ou null em caso de erro.
      */
-    private function atualizarPUT($id)
+    private function atualizarPUT(int $id): array|null
     {
-        // Validação da requisição
-        $validationResult = validateRequest(
-            allowedMethods: ["PUT"],
-            requiredFields: ["nome", "email", "senha", "status", "tipo"],
-            auth: true
+        $allowedMethods = ["PUT"];
+        $requiredFields = ["nome", "email", "senha", "status", "tipo"];
+        $authRequired = true;
+
+        $validationResult = FuncoesApp::validateRequest(
+            allowedMethods: $allowedMethods,
+            requiredFields: $requiredFields,
+            auth: $authRequired
         );
+
         if ($validationResult["error"]) {
             return $validationResult["data"];
         }
@@ -204,17 +223,17 @@ class Usuario
     }
 
     /**
-     * Atualiza alguns dados de um usuario
-     * @version 2.0.0
-     * @access private
-     * @method PUT
-     * @return array
+     * Atualiza um usuário através do método PATCH.
+     *
+     * @param int $id O ID do usuário a ser atualizado.
+     * @param bool $interno Define se a requisição é interna ou não. O valor padrão é false.
+     * @return array O resultado da atualização do usuário.
      */
     private function atualizarPATCH($id, $interno = false)
     {
         if (!$interno) {
             // Validação da requisição
-            $validationResult = validateRequest(
+            $validationResult = FuncoesApp::validateRequest(
                 allowedMethods: ["PATCH"],
                 auth: true
             );
@@ -223,63 +242,63 @@ class Usuario
             }
         }
 
-        //inicia variaveis
-        $dados = $_POST;
+        // Inicializa variáveis
+        $dados = filter_input_array(INPUT_POST);
         $salvar = [];
         $banco = new Banco;
 
-        //Valida se o campo nome está correto
+        // Valida se o campo nome está correto
         if (!empty($dados["nome"])) {
             $salvar["nome"] = $dados["nome"];
         }
 
-        //valida se o campo senha está correto
+        // Valida se o campo senha está correto
         if (!empty($dados["senha"])) {
             $salvar["senha"] = hash('sha512', $dados["senha"]);
         }
 
-        //Valida se o status está correto
+        // Valida se o status está correto
         if (!empty($dados["status"])) {
             if (in_array($dados["status"], $this->options["status"])) {
                 $salvar["status"] = $dados["status"];
             } else {
-                return returnData("invalid_fields", [
-                    "message" => "Status invalido",
-                    "description" => "O status atual não é valido",
+                return FuncoesApp::returnData("invalid_fields", [
+                    "message" => "Status inválido",
+                    "description" => "O status atual não é válido",
                 ]);
             }
         }
 
-        //valida se o tipo está correto
+        // Valida se o tipo está correto
         if (!empty($dados["tipo"])) {
             if (in_array($dados["tipo"], $this->options["tipo"])) {
                 $salvar["tipo"] = $dados["tipo"];
             } else {
-                return returnData("invalid_fields", [
-                    "message" => "Tipo invalido",
-                    "description" => "O Tipo atual não é valido",
+                return FuncoesApp::returnData("invalid_fields", [
+                    "message" => "Tipo inválido",
+                    "description" => "O tipo atual não é válido",
                 ]);
             }
         }
 
-        //Valida se tem email
+        // Valida se tem email
         if (!empty($dados["email"])) {
-            //Valida se o email é valido
-            if (!validaEmail($dados["email"])) {
-                return returnData("invalid_fields", [
-                    "message" => "Email invalido",
-                    "description" => "O email atual não é valido",
+            // Valida se o email é válido
+            if (!FuncoesApp::isEmailValid($dados["email"])) {
+                return FuncoesApp::returnData("invalid_fields", [
+                    "message" => "Email inválido",
+                    "description" => "O email atual não é válido",
                 ]);
             }
 
-            //Pesquisa novo email na base
+            // Pesquisa novo email na base
             $usuario = $banco->select([
                 "tabela" => "usuario",
                 "where" => "email = '" . $dados["email"] . "' AND id NOT IN($id)"
             ]);
             if (!empty($usuario)) {
-                return returnData("conflict", [
-                    "message" => "email já cadastrado",
+                return FuncoesApp::returnData("conflict", [
+                    "message" => "Email já cadastrado",
                     "description" => "O endereço de email fornecido existe na base de dados",
                 ]);
             }
@@ -295,7 +314,7 @@ class Usuario
 
         $dataUsuario = $this->listar($id, true);
         if ($dataUsuario["status"]) {
-            return returnData("success", [
+            return FuncoesApp::returnData("success", [
                 "message" => "Usuário Editado",
                 "description" => "Os dados do usuário foram atualizados com sucesso",
                 "data" => [
