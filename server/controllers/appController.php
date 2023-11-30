@@ -2,32 +2,40 @@
 
 class App
 {
-    public function login()
+
+    /**
+     * Realiza o login do usuário.
+     *
+     * @return array Retorna os dados do usuário logado ou uma mensagem de erro.
+     */
+    public function login(): array
     {
         // Validação da requisição
-        $validationResult = validateRequest(
+        $validationResult = FuncoesApp::validateRequest(
             allowedMethods: ["POST"],
             requiredFields: ["email", "senha"],
             auth: false
         );
+
         if ($validationResult["error"]) {
             return $validationResult["data"];
         }
 
-        $usuario = autenticaUsuario(true);
+        $usuario = FuncoesApp::autenticaUsuario(true);
+
         if ($usuario) {
             $_SESSION["usuario"]["data"] = $usuario;
             $_SESSION["usuario"]["logado"] = true;
-            unset($usuario["senha"]);
-            return returnData("success", [
+
+            return FuncoesApp::returnData("success", [
                 "message" => "Login feito",
                 "description" => "Login efetuado com sucesso",
                 "data" => [
                     "usuario" => $usuario
                 ],
             ]);
-        } else {
-            return returnData("nAutorizado");
         }
+
+        return FuncoesApp::returnData("nAutorizado");
     }
 }

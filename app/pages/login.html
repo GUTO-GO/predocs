@@ -2,6 +2,8 @@
 <html lang="pt-br">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <link rel="stylesheet" href="/app/css/pages/login.css">
 </head>
@@ -14,11 +16,11 @@
                 <div class="login-container card">
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
-                            <img class="img-fluid" src="/app/assets/global/logo.png" alt="">
+                            <img class="img-fluid" src="/app/assets/global/logo.png" alt="" width="200" height="200">
                         </div>
                     </div>
-                    <h2 class="text-center mt-5">Login</h2>
-                    <form id="form-login" action="/app/login" metodo="POST">
+                    <h1 class="text-center mt-5">Login</h1>
+                    <form id="form-login" action="/app/login" method="POST">
                         <div class="form-group mt-2">
                             <label for="username">Usuário</label>
                             <input type="text" name="email" class="form-control" id="username"
@@ -39,40 +41,7 @@
     </div>
 
     <script id="coreJs" src="../core/predocs.js"></script>
-    <script type="text/javascript">
-        const appConfig = {
-            componentesBloqueados: ["nav"]
-        };
-
-        const before = () => {
-            docs.replaceTextInView("body", docs.getConfig("app"));
-        };
-
-        const after = () => {
-            docs.form("#form-login",
-                () => {
-
-                },
-                (resp) => {
-                    let cor;
-                    if (resp.status) {
-                        cor = "#d1e7dd";
-                        window.location.href = "home.html"
-                    } else {
-                        cor = "#f8d7da";
-                    }
-                    return [
-                        resp.description,
-                        cor
-                    ]
-                }
-            );
-        };
-
-        const docs = new Predocs(appConfig);
-        docs.init(before, after);
-
-    </script>
+    <script src="../js/pages/login.js"></script>
 </body>
 
 </html>
