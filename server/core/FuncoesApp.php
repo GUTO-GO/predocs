@@ -26,15 +26,15 @@ class FuncoesApp
     {
         $username = $password = $hashedPassword = null;
 
-        //valida de onde vem o usuario e a senha
+        // Valida de onde vem o usuário e a senha
         if ($dadosPost) {
-            $username = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-            $password = filter_input(INPUT_POST, 'senha', FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
-        } elseif (filter_input(INPUT_SERVER, 'PHP_AUTH_USER') && filter_input(INPUT_SERVER, 'PHP_AUTH_PW')) {
-            $username = filter_input(INPUT_SERVER, 'PHP_AUTH_USER');
-            $password = filter_input(INPUT_SERVER, 'PHP_AUTH_PW');
-        } elseif (filter_input(INPUT_SERVER, 'HTTP_AUTHORIZATION') && preg_match('/^basic/i', filter_input(INPUT_SERVER, 'HTTP_AUTHORIZATION'))) {
-            list($username, $password) = explode(':', base64_decode(substr(filter_input(INPUT_SERVER, 'HTTP_AUTHORIZATION'), 6)));
+            $username = $_POST['email'];
+            $password = $_POST['senha'];
+        } elseif ($_SERVER['PHP_AUTH_USER'] && $_SERVER['PHP_AUTH_PW']) {
+            $username = $_SERVER['PHP_AUTH_USER'];
+            $password = $_SERVER['PHP_AUTH_PW'];
+        } elseif ($_SERVER['HTTP_AUTHORIZATION'] && preg_match('/^basic/i', $_SERVER['HTTP_AUTHORIZATION'])) {
+            list($username, $password) = explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
         } elseif (isset($_SESSION["usuario"], $_SESSION["usuario"]["logado"])) {
             return $_SESSION["usuario"]["data"];
         } else {
