@@ -3,45 +3,42 @@
 /**
  * Classe para manipulação de logs
  */
-class Log extends Arquivo
+class Log
 {
+
     /**
-     * Função para escrever algo no storage
+     * Construtor da classe Log.
      *
-     * Para funções dentro de controller é necessario apenas o primeiro parametro
-     * @version 2
-     * @access public
-     * @param string $mensagem mensagem que será adicionada no log
-     * @param string $controller arquivo que está executando
-     * @param string $function função que está executando
-     * @return void
+     * [ATENÇÃO]: Este construtor será removido em versões futuras.
+     * Utilize o método estático registrar() para adicionar mensagens no log.
+     *
+     * @param string $mensagem Mensagem a ser registrada no log.
+     * @param string $controller Arquivo em execução.
+     * @param string $function Função em execução.
      */
     public function __construct(string $mensagem = "", string $controller = "", string $function = "")
     {
-        if (empty($controller))
-            $controller = $_GET["controller"];
-
-        if (empty($function))
-            $function = $_GET["function"];
-
-        $this->escreveLog("{$controller} - {$function} : {$mensagem}");
-
-        return;
+        $this->registrar(mensagem: $mensagem, controller: $controller, function: $function);
     }
 
     /**
-     * Função para criar e escrever no arquivo de log
-     * @version 1
-     * @access private
-     * @param string $mensagem Mensagem que será escrita no log
+     * Registra uma mensagem no arquivo de log.
+     *
+     * @param string $mensagem Mensagem a ser registrada no log.
+     * @param string $controller Arquivo em execução.
+     * @param string $function Função em execução.
      */
-    private function escreveLog(string $mensagem)
+    public static function registrar(string $mensagem = "", string $controller = "", string $function = "")
     {
-        $config = new Config;
+        $controller = $controller ?: $_GET["controller"];
+        $function = $function ?: $_GET["function"];
+
         $dia = date("Y/m/d");
         $hora = date("H:i:s");
-        parent::__construct("{$config->getCaminho("log")}/{$dia}.log");
-        parent::criar();
-        parent::adicionar("{$dia} {$hora} - {$mensagem}\r\n");
+        $caminhoLog = Config::getCaminho("log") . "/{$dia}.log";
+
+        $arquivoLog = new Arquivo($caminhoLog);
+        $arquivoLog->criar();
+        $arquivoLog->adicionar("{$dia} {$hora} - {$controller} - {$function} : {$mensagem}\r\n");
     }
 }
