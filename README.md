@@ -1,22 +1,11 @@
-<<<<<<< HEAD
-# Dossier - Aplicativo para Gerenciamento de Arquivos
-
-## Visão Geral
-
-O Dossier é um aplicativo de gerenciamento de arquivos que permite aos usuários organizar, armazenar e acessar seus arquivos de forma eficiente. Este aplicativo é projetado para facilitar o gerenciamento de documentos e dados.
-=======
 # Predocs - Um Framework Web
 
 ## Visão Geral
 
 O Predocs é um framework para desenvolvimento web voltado para programadores que desejam criar aplicativos web com facilidade. Ele simplifica a conexão com bancos de dados e oferece uma arquitetura para agilizar o desenvolvimento.
->>>>>>> predocs/main
 
 ## Mais informações
 
-<<<<<<< HEAD
-Para mais informações acesse a [documentação do sistema](/docs)
-=======
 Antes de começar, certifique-se de que seu ambiente de desenvolvimento atenda aos seguintes requisitos:
 
 - **PHP:** Versão 8 ou superior.
@@ -86,7 +75,6 @@ Se você deseja contribuir para o desenvolvimento do Predocs, aqui está como vo
 7. **Abra um Pull Request:** Visite a página do seu fork no GitHub e clique no botão "New Pull Request" (Novo Pedido de Pull). Descreva suas alterações e envie o Pull Request.
 
 Estamos ansiosos para receber suas contribuições!
->>>>>>> predocs/main
 
 ## Política de Segurança
 
