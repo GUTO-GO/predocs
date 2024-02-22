@@ -1,25 +1,26 @@
-# Dossier - Seu sistema de arquivos
+# Documentação da Predocs - Seu framework Web
 
-Bem-vindo ao Dossier, seu sistema de gestão de arquivos. Aqui, você encontrará todas as informações necessárias para começar a integrar com nossas APIs.
+Bem-vindo à documentação. Aqui você encontrará todas as informações necessárias para começar em seu projeto.
 
-## Visão Geral do Dossier
+## Requisitos
 
-O Dossier é um sistema web que simplifica o gerenciamento de arquivos via Web.
+Antes de começar, certifique-se de que seu ambiente de desenvolvimento atenda aos seguintes requisitos:
+
+- **PHP:** Versão 8 ou superior.
+- **Servidor Web:** Recomendamos o uso de um servidor Apache (por exemplo, XAMPP ou WAMP).
+- **Conhecimento Básico:** É útil ter conhecimento básico de HTML, CSS, JavaScript, PHP e SQL.
 
 ## Começando
 
-- [Requisitos do sistema](/docs/markdown/docs/requisitos.md)
-- [Instalação](/docs/markdown/docs/instalacao.md)
-- [Contribuição](/docs/markdown/docs/contribuicao.md)
+
 
 ## Entidades
 
-- [App](/docs/markdown/endpoints/app.md)
-- [Usuario](/docs/markdown/endpoints/usuario.md)
-
 ## Erros e Mensagens de Erro
 
-Para visualizar as informações detalhadas sobre cada mensagem de erro, basta abrir o [**Índice de Mensagens de Erro**](/docs/markdown/errors/index.md).
+- [Método Não Permitido (Method Not Allowed)](/docs/markdown/errors/method_not_allowed.md)
+- [Codigo2](erro2.md)
+- [Codigo3](erro3.md)
 
 ## Como Usar
 
