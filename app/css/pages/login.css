@@ -6,6 +6,11 @@ body {
     background-position: center;
 }
 
+.parent-card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .card {
     border: 2px inset #b75eda;
     color: white;
