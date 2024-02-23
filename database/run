@@ -1,0 +1,9 @@
+<?php
+
+namespace DatabasePredocs;
+
+include_once "getDatabase.php";
+
+$structurePath = __DIR__ . '/migration/';
+
+runSql($structurePath);
