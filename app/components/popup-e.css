@@ -1,0 +1,4 @@
+.popup {
+    background-color: rgba(255, 0, 0, 0.9);
+    border: 5px inset red;
+}
