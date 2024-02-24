@@ -1,6 +1,6 @@
 /* variaveis css */
 :root {
     /* variveis gerais */
-    --cor-fundo: #1A233A;
-    --cor-texto: #8DC7F8;
+    --cor-fundo: linear-gradient(130deg, #8DC7F8, #6B0D7E);
+    --cor-texto: white;
 }
