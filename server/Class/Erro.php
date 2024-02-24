@@ -42,4 +42,15 @@ class Erro
             "dadosRequeridos" => $dados,
         ];
     }
+
+    public function invalidMethod(array $metods = [])
+    {
+        http_response_code(405);
+        return [
+            "status" => false,
+            "erro" => "405",
+            "mensagem" => "Método não permitido",
+            "metodosPermitidos" => $metods,
+        ];
+    }
 }

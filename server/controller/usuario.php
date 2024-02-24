@@ -23,6 +23,11 @@ class Usuario implements ControllerInterface
             "email",
             "password"
         ];
+        $methods = ["POST"];
+
+        if ($this->method !== "POST") {
+            return (new Erro())->invalidMethod($methods);
+        }
 
         if (empty($this->post["email"]) || empty($this->post["password"])) {
             return (new Erro())->invalidRequest("Email ou senha estão vazios", $dataRequired);

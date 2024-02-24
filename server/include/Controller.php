@@ -18,11 +18,13 @@ trait Controller
 {
     public array $get = [];
     public array $post = [];
+    public string $method = "";
 
     public function __construct()
     {
         $this->get = $_GET;
         $this->post = $_POST;
+        $this->method = $_SERVER["REQUEST_METHOD"];
     }
 
     public function __call(string $metodo, array $arguments)
