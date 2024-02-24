@@ -31,4 +31,15 @@ class Erro
             "post" => $_POST
         ];
     }
+
+    public function invalidRequest(string $mensagem = "", array $dados = [])
+    {
+        http_response_code(400);
+        return [
+            "status" => false,
+            "erro" => "400",
+            "mensagem" => $mensagem,
+            "dadosRequeridos" => $dados,
+        ];
+    }
 }
