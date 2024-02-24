@@ -7,7 +7,6 @@ const after = (predocs) => {
     }
     const afterSubmit = (response) => {
         response = JSON.parse(response);
-        console.log(response);
         if (response.status) {
             $("c-popup_s").show();
             setTimeout(() => {
