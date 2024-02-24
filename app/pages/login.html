@@ -8,21 +8,28 @@
 
 <body>
 
+    <c-popup_e></c-popup_e>
+    <c-popup_s>
+        Login com sucesso!<br>Redirecionando para a página inicial...
+    </c-popup_s>
+
     <div class="parent-card justify-content-center align-items-center" style="height: 90vh;">
         <div class="card card-transparent" style="width: 30rem;">
             <div class="card-header d-flex justify-content-center">
                 <img src="../assets/global/logo.png" alt="logo" width="150px">
             </div>
             <div class="card-body">
-                <h4 class="card-title">Acesse sua conta</h4>
-                <form>
+                <h4 class="card-title">Acesse sua conta {{name}}</h4>
+                <form id="form-login" action="/usuario/login" method="POST">
                     <div class="mb-3">
                         <label for="input-usuario">Usuário</label>
-                        <input name="usuario" id="input-usuario" type="text" class="form-control" placeholder="meu@email.com">
+                        <input name="email" id="input-usuario" type="email" class="form-control"
+                            placeholder="meu@email.com" required>
                     </div>
                     <div class="mb-3">
                         <label for="input-senha">Senha</label>
-                        <input name="senha" id="input-senha" type="password" class="form-control" placeholder="12345">
+                        <input name="password" id="input-senha" type="password" class="form-control" placeholder="12345"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-primary">Entrar</button>
                 </form>
@@ -31,9 +38,7 @@
     </div>
 
     <script id="coreJs" src="../core/predocs.js"></script>
-    <script>
-        let predocs = new Predocs();
-    </script>
+    <script src="../js/pages/login.js"></script>
 </body>
 
 </html>
