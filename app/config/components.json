@@ -3,18 +3,18 @@
         "html": "navbar"
     },
     "popup_e": {
-        "html": "popup",
-        "js": "popup",
-        "css": "popup-e"
+        "html": "popup/popup",
+        "js": "popup/popup",
+        "css": "popup/popup-e"
     },
     "popup_s": {
-        "html": "popup",
-        "js": "popup",
-        "css": "popup-s"
+        "html": "popup/popup",
+        "js": "popup/popup",
+        "css": "popup/popup-s"
     },
     "popup_i": {
-        "html": "popup",
-        "js": "popup",
-        "css": "popup-i"
+        "html": "popup/popup",
+        "js": "popup/popup",
+        "css": "popup/popup-i"
     }
 }
