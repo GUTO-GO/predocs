@@ -1,4 +1,4 @@
-create table if not exists `usuario` (
+create table if not exists `user` (
     `id` int(11) not null auto_increment,
     `name` varchar(100) not null,
     `email` varchar(100) not null unique,
@@ -8,7 +8,7 @@ create table if not exists `usuario` (
     primary key (`id`)
 ) engine = InnoDB default charset = utf8;
 
-create index idx_usuario_email on `usuario` (`email`);
+create index idx_usuario_email on `user` (`email`);
 
-insert into `usuario` (`id`, `name`, `email`, `password`, `created`, `modified`) values
+insert into `user` (`id`, `name`, `email`, `password`, `created`, `modified`) values
     (1, 'Administrador', 'adm@dossier.com' , '$2y$10$6Zwe9nnh/FAYR57Xn9BjPuBhvpbHIGk/NmqpqhOZdNODKneJecJ2e', now(), now());
