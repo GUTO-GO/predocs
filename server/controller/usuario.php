@@ -52,4 +52,43 @@ class Usuario implements ControllerInterface
             "mensagem" => "Usuário logado com sucesso",
         ];
     }
+
+    public function novo()
+    {
+        $dataRequired = [
+            "name",
+            "email",
+            "password",
+        ];
+        $methods = ["POST"];
+
+        if ($this->method !== "POST") {
+            return (new Erro())->invalidMethod($methods);
+        }
+
+        if (empty($this->post["email"]) || empty($this->post["password"]) || empty($this->post["name"])) {
+            return (new Erro())->invalidRequest("Campos obrigatórios requeridos", $dataRequired, ["cost" => 100]);
+        }
+
+        $userModel = new UserModel();
+        $email = $this->post["email"];
+        $password = $this->post["password"];
+        $name = $this->post["name"];
+
+        if ($userModel->getByEmail($email)) {
+            return (new Erro())->invalidRequest("Email já cadastrado", $dataRequired);
+        }
+
+        $id = $userModel->insert([
+            "email" => $email,
+            "password" => password_hash($password, PASSWORD_BCRYPT),
+            "name" => $name
+        ]);
+
+        return [
+            "status" => true,
+            "mensagem" => "Usuário cadastrado com sucesso",
+            "id" => $id
+        ];
+    }
 }

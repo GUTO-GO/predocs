@@ -38,4 +38,9 @@ class User
         $sql = "SELECT * FROM $this->table WHERE " . $this->database->where($conditions);
         return $this->database->list($sql, $conditions);
     }
+
+    public function insert(array $data)
+    {
+        return $this->database->insert($this->table, $data);
+    }
 }
