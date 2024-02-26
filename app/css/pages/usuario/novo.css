@@ -6,7 +6,6 @@
 .card {
     border: 4px inset #b75eda;
     color: white;
-    z-index: -1;
 }
 
 .card-transparent {
