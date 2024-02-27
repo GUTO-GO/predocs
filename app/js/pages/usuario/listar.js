@@ -29,7 +29,7 @@ var predocs = new Predocs(
         input.addEventListener("input", function () {
             var filter = input.value.toUpperCase();
 
-            for (var i = 0; i < rows.length; i++) {
+            for (var i = 1; i < rows.length; i++) {
                 var cells = rows[i].getElementsByTagName("td");
                 var rowMatch = false;
 
