@@ -30,14 +30,21 @@ var predocs = new Predocs(
             var filter = input.value.toUpperCase();
 
             for (var i = 0; i < rows.length; i++) {
-                var td = rows[i].getElementsByTagName("td")[0];
-                if (td) {
-                    var textValue = td.textContent || td.innerText;
+                var cells = rows[i].getElementsByTagName("td");
+                var rowMatch = false;
+
+                for (var j = 0; j < cells.length; j++) {
+                    var textValue = cells[j].textContent || cells[j].innerText;
                     if (textValue.toUpperCase().indexOf(filter) > -1) {
-                        rows[i].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
+                        rowMatch = true;
+                        break;
                     }
+                }
+
+                if (rowMatch) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
                 }
             }
         });
