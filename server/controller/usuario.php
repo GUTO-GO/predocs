@@ -91,4 +91,20 @@ class Usuario implements ControllerInterface
             "id" => $id
         ];
     }
+
+    public function listar()
+    {
+        $methods = ["GET"];
+
+        if ($this->method !== "GET") {
+            return (new Erro())->invalidMethod($methods);
+        }
+
+        $userModel = new UserModel();
+
+        return [
+            "status" => true,
+            "data" => $userModel->getAll()
+        ];
+    }
 }

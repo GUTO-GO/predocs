@@ -1,0 +1,113 @@
+.parent-card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    border: 4px inset #b75eda;
+    color: white;
+}
+
+.card-transparent {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card-body-top{
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-new-user{
+    border-radius: 40px;
+    margin-bottom: 20px;
+}
+
+.user-list {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.user-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.user-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.user-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 100px;
+}
+
+.user-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    min-width: 100%;
+    width: auto;
+}
+
+thead th {
+    text-align: center;
+    padding: 10px;
+}
+
+tbody tr {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 4px inset #b75eda;
+}
+
+td {
+    width: auto;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+table button.btn {
+    border-radius: 40px;
+}
+
+tr td:first-child {
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+tr td:last-child {
+    text-align: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+@keyframes animation-show {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.show-element {
+    animation: animation-show 2s ease-out both;
+}

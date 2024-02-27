@@ -33,6 +33,11 @@ class User
         return $this->serach(["email" => $email])[0] ?? [];
     }
 
+    public function getAll()
+    {
+        return $this->database->list("SELECT * FROM $this->table");
+    }
+
     public function serach(array $conditions)
     {
         $sql = "SELECT * FROM $this->table WHERE " . $this->database->where($conditions);
