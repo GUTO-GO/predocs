@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{nome_usuario}}</title>
+    <link rel="stylesheet" href="../../css/card-transparent.css">
+    <link rel="stylesheet" href="../../css/pages/usuario/editar.css">
+</head>
+
+<body>
+
+    <c-navbar></c-navbar>
+
+    <c-popup_s>Usuário cadastrado com sucesso!</c-popup_s>
+    <c-popup_e></c-popup_e>
+
+    <form id="form-edit" action="/usuario/novo" method="POST">
+        <div class="parent-card justify-content-center align-items-center" style="height: 60vh;">
+            <div class="card card-transparent m-3" style="width: 75rem;">
+                <div class="card-header d-flex justify-content-center">
+                    <h1 class="card-title">
+                        <textarea id="input-name-user" type="text" name="name" oninput="ajustarDimensoes(this)"
+                            onkeydown="impedirQuebraDeLinha(event)" rows=" 1"></textarea>
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <label for="input-usuario">Email</label>
+                            <input name="email" type="email" class="form-control" placeholder="meu@email.com" required>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <label for="input-senha">Redefinir senha</label>
+                            <input name="password" type="password" class="form-control" placeholder="Redefinir a senha do usuário" required>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script id="coreJs" src="../../core/predocs.js"></script>
+    <script src="../../js/pages/usuario/editar.js" ></script>
+</body>
+
+</html>
