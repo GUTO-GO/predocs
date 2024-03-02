@@ -11,11 +11,13 @@ var predocs = new Predocs(
                     <td>${user.email}</td>
                     <td>${new Date(user.created).toLocaleString('pt-BR')}</td>
                     <td>
-                        <button class="btn btn-primary">Editar</button>
+                        <a href="editar.html?id=${user.id}">
+                                <button class="btn btn-primary">Editar</button>
+                        </a>
                         <button class="btn btn-danger">Excluir</button>
                     </td>
                 `;
-                document.querySelector("table").appendChild(tr);
+                document.querySelector("table tbody").appendChild(tr);
             }
         }
 
