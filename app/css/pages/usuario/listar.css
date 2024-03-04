@@ -60,7 +60,7 @@ tbody tr {
     border: 4px inset #b75eda;
 }
 
-td {
+tbody td {
     width: auto;
     text-align: center;
     padding-left: 10px;
@@ -71,6 +71,10 @@ td {
 
 table button.btn {
     border-radius: 40px;
+}
+
+table a {
+    text-decoration: none;
 }
 
 tr td:first-child {
