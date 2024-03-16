@@ -102,9 +102,45 @@ class Usuario implements ControllerInterface
 
         $userModel = new UserModel();
 
+        if (!empty($_GET["id"]) && is_numeric($_GET["id"])) {
+            $data = $userModel->getById($_GET["id"]);
+        } else {
+            $data = $userModel->getAll();
+        }
+
         return [
             "status" => true,
-            "data" => $userModel->getAll()
+            "data" => $data
         ];
+    }
+
+    public function editar(){
+        $id = $_GET["id"] ?? null;
+        $methods = ["PUT", "PATCH"];
+        $dataRequired = [
+            "name",
+            "email",
+            "password",
+        ];
+
+        if (!in_array($this->method, $methods)) {
+            return (new Erro())->invalidMethod($methods);
+        }
+
+        if (empty($id) || !is_numeric($id)) {
+            return (new Erro())->invalidRequest("Id inválido", ["id"]);
+        }
+
+        foreach ($dataRequired as $field) {
+            if (empty($this->post[$field])) {
+                return (new Erro())->invalidRequest("Campos obrigatórios requeridos", $dataRequired);
+            }
+        }
+
+        $userModel = new UserModel();
+        $user = new UserClass($id);
+
+
+
     }
 }
