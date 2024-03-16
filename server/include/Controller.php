@@ -2,8 +2,6 @@
 
 namespace Predocs\Include;
 
-use Predocs\class\Erro as Err;
-
 /**
  * Trait Controller
  *
@@ -11,8 +9,8 @@ use Predocs\class\Erro as Err;
  *
  * @package Predocs\Shared
  * @author Felipe dos S. Cavalca
- * @version 1.0.0
- * @since 1.0.0
+ * @version 1.1.0
+ * @since 1.1.0
  */
 trait Controller
 {
@@ -25,11 +23,5 @@ trait Controller
         $this->get = $_GET;
         $this->post = $_POST;
         $this->method = $_SERVER["REQUEST_METHOD"];
-    }
-
-    public function __call(string $metodo, array $arguments)
-    {
-        $err = new Err;
-        return $err->erro404($metodo, $arguments, $this->get, $this->post);
     }
 }
