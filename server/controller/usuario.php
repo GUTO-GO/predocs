@@ -2,9 +2,12 @@
 
 namespace Predocs\Controller;
 
+use Predocs\Attributes\Method;
+use Predocs\Attributes\RequiredFields;
 use Predocs\Interface\ControllerInterface;
 use Predocs\Include\Controller;
 use Predocs\Class\Erro;
+use Predocs\Class\HttpError;
 use Predocs\Model\User as UserModel;
 use Predocs\Class\User as UserClass;
 
@@ -17,22 +20,13 @@ class Usuario implements ControllerInterface
         return "Usuario";
     }
 
+    #[Method("POST")]
+    #[RequiredFields([
+        "email" => FILTER_VALIDATE_EMAIL,
+        "password"
+    ])]
     public function login()
     {
-        $dataRequired = [
-            "email",
-            "password"
-        ];
-        $methods = ["POST"];
-
-        if ($this->method !== "POST") {
-            return (new Erro())->invalidMethod($methods);
-        }
-
-        if (empty($this->post["email"]) || empty($this->post["password"])) {
-            return (new Erro())->invalidRequest("Email ou senha estão vazios", $dataRequired);
-        }
-
         $userModel = new UserModel();
         $userClass = new UserClass();
         $email = $this->post["email"];
@@ -41,7 +35,7 @@ class Usuario implements ControllerInterface
         $dataUsuario = $userModel->getByEmail($email);
 
         if (empty($dataUsuario) || !password_verify($password, $dataUsuario["password"])) {
-            return (new Erro())->invalidRequest("Email ou senha estão incorretos", $dataRequired);
+            throw new HttpError("Unauthorized", ["Email ou senha estão incorretos"]);
         }
 
         $userClass->setDataUser($dataUsuario);
@@ -53,29 +47,21 @@ class Usuario implements ControllerInterface
         ];
     }
 
+    #[Method("POST")]
+    #[RequiredFields([
+        "name",
+        "email" => FILTER_VALIDATE_EMAIL,
+        "password",
+    ])]
     public function novo()
     {
-        $dataRequired = [
-            "name",
-            "email",
-            "password",
-        ];
-        $methods = ["POST"];
-
-        if ($this->method !== "POST") {
-            return (new Erro())->invalidMethod($methods);
-        }
-
-        if (empty($this->post["email"]) || empty($this->post["password"]) || empty($this->post["name"])) {
-            return (new Erro())->invalidRequest("Campos obrigatórios requeridos", $dataRequired, ["cost" => 100]);
-        }
-
         $userModel = new UserModel();
         $email = $this->post["email"];
         $password = $this->post["password"];
         $name = $this->post["name"];
 
         if ($userModel->getByEmail($email)) {
+
             return (new Erro())->invalidRequest("Email já cadastrado", $dataRequired);
         }
 
@@ -114,7 +100,8 @@ class Usuario implements ControllerInterface
         ];
     }
 
-    public function editar(){
+    public function editar()
+    {
         $id = $_GET["id"] ?? null;
         $methods = ["PUT", "PATCH"];
         $dataRequired = [
@@ -139,8 +126,5 @@ class Usuario implements ControllerInterface
 
         $userModel = new UserModel();
         $user = new UserClass($id);
-
-
-
     }
 }
