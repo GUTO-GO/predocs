@@ -1,0 +1,5 @@
+{
+    "name": "Meu Projeto PHP",
+    "image": "mcr.microsoft.com/vscode/devcontainers/php:8",
+    "forwardPorts": [80, 443]
+}
