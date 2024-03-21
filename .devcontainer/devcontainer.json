@@ -1,6 +1,19 @@
 {
-    "name": "Meu Projeto PHP",
-    "image": "mcr.microsoft.com/vscode/devcontainers/php:8",
-    "forwardPorts": [80, 443],
-    "postCreateCommand": "php -S localhost:8000"
+  "name": "DevContainer PreDocs",
+  "dockerComposeFile": "../Docker/docker-compose.yml",
+  "service": "predocs",
+  "workspaceFolder": "/var/www/html",
+  "forwardPorts": [
+    7000, // Local port - PreDocs
+    8000, // Frontend
+    9000 // Backend
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "felixfbecker.php-debug",
+        "mhutchie.git-graph"
+      ]
+    }
+  }
 }
