@@ -61,8 +61,7 @@ class Usuario implements ControllerInterface
         $name = $this->post["name"];
 
         if ($userModel->getByEmail($email)) {
-
-            return (new Erro())->invalidRequest("Email já cadastrado", $dataRequired);
+            return new HttpError("conflict", ["Email já cadastrado"]);
         }
 
         $id = $userModel->insert([
