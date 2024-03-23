@@ -77,14 +77,9 @@ class Usuario implements ControllerInterface
         ];
     }
 
+    #[Method("GET")]
     public function listar()
     {
-        $methods = ["GET"];
-
-        if ($this->method !== "GET") {
-            return (new Erro())->invalidMethod($methods);
-        }
-
         $userModel = new UserModel();
 
         if (!empty($_GET["id"]) && is_numeric($_GET["id"])) {
