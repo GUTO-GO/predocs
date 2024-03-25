@@ -7,31 +7,31 @@ use Predocs\Class\HttpError;
 use Predocs\Interface\AttributesInterface;
 
 #[Attribute]
-class RequiredFields implements AttributesInterface
+class RequiredParams implements AttributesInterface
 {
 
-    public function __construct(private mixed $fields)
+    public function __construct(private mixed $params)
     {
-        $this->validateRequiredFields($this->fields);
+        $this->validateRequiredParams($this->params);
     }
 
-    private function validateRequiredFields(array $fields)
+    private function validateRequiredParams(array $params)
     {
-        foreach ($fields as $field => $param) {
+        foreach ($params as $field => $param) {
             if (is_int($field)) {
                 $field = $param;
                 $param = FILTER_DEFAULT;
             }
-            static::existField($field);
+            static::existParam($field);
             static::validateType($field, $param);
         }
     }
 
-    private function existField($field)
+    private function existParam($field)
     {
-        if (!isset($_POST[$field])) {
+        if (!isset($_GET[$field])) {
             throw new HttpError("badRequest", [
-                "error" =>  "Campo não encontrado",
+                "error" =>  "Parametro não encontrado",
                 "fieldName" => $field,
             ]);
         }
