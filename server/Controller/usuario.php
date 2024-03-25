@@ -2,12 +2,15 @@
 
 namespace Predocs\Controller;
 
-use Predocs\Attributes\Method;
-use Predocs\Attributes\RequiredFields;
 use Predocs\Interface\ControllerInterface;
 use Predocs\Include\Controller;
-use Predocs\Class\Erro;
+
 use Predocs\Class\HttpError;
+
+use Predocs\Attributes\Method;
+use Predocs\Attributes\RequiredFields;
+use Predocs\Attributes\RequiredParams;
+
 use Predocs\Model\User as UserModel;
 use Predocs\Class\User as UserClass;
 
