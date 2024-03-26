@@ -7,7 +7,7 @@ window.addEventListener('resize', function () {
 var predocs = new Predocs(
     (docs) => {
         let id = docs.getParamUrl("id");
-        let request = docs.requestGet("/Api/usuario/listar", { id: id });
+        let request = docs.requestGet("/api/usuario/listar", { id: id });
         request = JSON.parse(request);
         if (request.status) {
             setDataInView(request.data);

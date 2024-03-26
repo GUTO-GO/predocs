@@ -1,6 +1,6 @@
 # Cadastrar Usuário
 
-`POST /Api/usuario/cadastrar`
+`POST /api/usuario/cadastrar`
 
 Este endpoint permite registrar um novo usuário no sistema.
 

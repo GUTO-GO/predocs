@@ -1,6 +1,6 @@
 # Login de usuário
 
-`POST /Api/deslogado/login`
+`POST /api/deslogado/login`
 
 Este endpoint permite validar as credenciais de um usuário no sistema.
 

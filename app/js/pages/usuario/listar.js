@@ -1,6 +1,6 @@
 var predocs = new Predocs(
     (docs) => {
-        let users = JSON.parse(docs.requestGet("/Api/usuario/listar"));
+        let users = JSON.parse(docs.requestGet("/api/usuario/listar"));
 
         if (users.status) {
             for (let user of users.data) {
