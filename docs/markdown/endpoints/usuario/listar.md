@@ -1,6 +1,6 @@
 # Listar Usuário
 
-`GET /server/usuario/listar`
+`GET /Api/usuario/listar`
 
 Este endpoint permite listar os usuário do sistema.
 
