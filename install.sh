@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Url do repositório do GitHub
-repo_url="https://github.com/Felipe-Cavalca/predocs.git"
+repo_url="https://github.com/Felipe-Cavalca/Dossier-Dev.git"
 
 # Extrair o nome do repositório da URL do Git
 repo_name=$(basename "$repo_url" .git)
