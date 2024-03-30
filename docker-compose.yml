@@ -14,6 +14,8 @@ services:
       - "7000:80"
     networks:
       - rede_predocs
+    depends_on:
+      - bd
   app:
     build:
       context: ./
