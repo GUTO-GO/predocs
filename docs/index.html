@@ -14,24 +14,24 @@
         </div>
     </div>
 
-    <script id="coreJs" src="../app/core/predocs.js"></script>
-    <script src="../app/libs/showdown_2.1.0.min.js"></script>
+    <script id="coreJs" src="/core/predocs.js"></script>
+    <script src="../libs/showdown_2.1.0.min.js"></script>
     <script type="text/javascript">
-            const before = function (preDocs) {
-                preDocs.replaceTextInElement("body", preDocs.configApp);
+        const before = function (preDocs) {
+            preDocs.replaceTextInElement("body", preDocs.configApp);
         };
 
-            const after = (preDocs) => {
+        const after = (preDocs) => {
             const converter = new showdown.Converter();
-            const markdownText = preDocs.requestGet(preDocs.getParamUrl("page") ?? "index.md");
+            const markdownText = preDocs.requestGet("docs/" + (preDocs.getParamUrl("page") ?? "index.md"));
             const htmlText = converter.makeHtml(markdownText);
             document.getElementById("conteudo").innerHTML = htmlText;
 
             //substituindo links na versão web
             let html = document.querySelector("#conteudo").innerHTML;
             html = html.replace(
-                new RegExp(`/docs/markdown/`, "g"),
-                "?page=markdown/"
+                new RegExp(`/docs/`, "g"),
+                "?page="
             );
             html = html.replace(
                 new RegExp(`/docs/index.md`, "g"),
@@ -39,8 +39,7 @@
             );
             document.querySelector("#conteudo").innerHTML = html;
         };
-
-            const preDocs = new Predocs(before, after);
+    const preDocs = new Predocs(before, after);
     </script>
 </body>
 
