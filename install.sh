@@ -34,3 +34,9 @@ fi
 
 # Construir e iniciar os serviços usando o Docker Compose
 docker-compose up --build -d
+
+# Instala dependencias
+docker-compose exec predocs bash scripts/install_dependencies.sh
+
+# Instala o banco de dados
+docker-compose exec predocs bash scripts/install_bd.sh
