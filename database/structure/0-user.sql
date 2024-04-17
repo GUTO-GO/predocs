@@ -19,7 +19,7 @@ CREATE TABLE user_log (
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER user_log_trigger
+CREATE TRIGGER user_log_trigger_insert
 AFTER INSERT ON `user`
 FOR EACH ROW
 BEGIN
