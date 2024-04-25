@@ -94,7 +94,7 @@ services:
     environment:
       - "AUTH_METHOD=mysql"
     volumes:
-      - "./data:/data"
+      - "./scripts:/data"
       - "storage:/storage"
     ports:
       - "2100:2100"
