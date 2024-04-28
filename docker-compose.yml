@@ -103,4 +103,3 @@ services:
       - rede_predocs
     depends_on:
       - db
-    restart: always
