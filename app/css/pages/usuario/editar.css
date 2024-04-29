@@ -1,0 +1,23 @@
+h1{
+    width: 100%;
+}
+
+textarea#input-name-user {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    height: auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+textarea#input-name-user:focus {
+    text-decoration: underline;
+}

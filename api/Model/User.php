@@ -1,7 +1,5 @@
 <?php
 
-//! MODELO DE EXEMPLO
-
 namespace Predocs\Model;
 
 use Predocs\Core\Database;

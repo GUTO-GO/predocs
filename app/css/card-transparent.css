@@ -1,0 +1,13 @@
+.parent-card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    border: 4px inset #b75eda;
+    color: white;
+}
+
+.card-transparent {
+    background-color: rgba(255, 255, 255, 0.4);
+}

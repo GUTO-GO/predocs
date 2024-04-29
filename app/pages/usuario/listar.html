@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Usuários</title>
+    <link rel="stylesheet" href="../../css/card-transparent.css">
+    <link rel="stylesheet" href="../../css/pages/usuario/listar.css">
+</head>
+
+<body>
+
+    <c-navbar></c-navbar>
+
+    <div class="parent-card justify-content-center align-items-center" style="height: 40vh;">
+        <div class="card card-transparent m-3" style="width: 90rem;">
+            <div class="card-header d-flex justify-content-center">
+                <h1 class="card-title">Usuários</h1>
+            </div>
+            <div class="card-body">
+                <div class="card-body-top">
+                    <div class="d-flex justify-content-end">
+                        <a href="./novo.html">
+                            <button class="btn btn-success btn-new-user">Novo usuário</button>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <input type="text" id="search-user" class="form-control" placeholder="Pesquisar usuário">
+                    </div>
+                </div>
+                <div class="user-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Criado</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="coreJs" src="../../core/predocs.js"></script>
+    <script src="../../js/pages/usuario/listar.js"></script>
+</body>
+
+</html>

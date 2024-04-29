@@ -1,4 +1,4 @@
-# Predocs - Um Framework Web
+# Dossier
 
 ## Visão Geral
 
@@ -14,7 +14,7 @@ O Predocs é um framework para desenvolvimento web voltado para programadores qu
     * Você pode baixar o arquivo de instalação usando o comando:
 
     ```shell
-    curl -o install.sh https://raw.githubusercontent.com/Felipe-Cavalca/predocs/main/install.sh
+    curl -o install.sh https://raw.githubusercontent.com/Felipe-Cavalca/Dossier-Dev/main/install.sh
     ```
 
 1. Execute o [`arquivo de instalação`](install.sh)

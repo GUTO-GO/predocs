@@ -1,5 +1,22 @@
 {
     "navbar": {
-        "html": "navbar"
+        "html": "navbar/navbar",
+        "js": "navbar/navbar",
+        "css": "navbar/navbar"
+    },
+    "popup_e": {
+        "html": "popup/popup",
+        "js": "popup/popup",
+        "css": "popup/popup-e"
+    },
+    "popup_s": {
+        "html": "popup/popup",
+        "js": "popup/popup",
+        "css": "popup/popup-s"
+    },
+    "popup_i": {
+        "html": "popup/popup",
+        "js": "popup/popup",
+        "css": "popup/popup-i"
     }
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Novo usuário</title>
+    <link rel="stylesheet" href="../../css/card-transparent.css">
+</head>
+
+<body>
+
+    <c-navbar></c-navbar>
+
+    <c-popup_s>Usuário cadastrado com sucesso!</c-popup_s>
+    <c-popup_e></c-popup_e>
+
+    <div class="parent-card justify-content-center align-items-center" style="height: 60vh;">
+        <div class="card card-transparent m-3" style="width: 75rem;">
+            <div class="card-header d-flex justify-content-center">
+                <h1 class="card-title">Novo usuário</h1>
+            </div>
+            <div class="card-body">
+                <form id="form-cadastro" action="/usuario/novo" method="POST">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <label for="input-nome">Nome</label>
+                            <input name="name" type="text" class="form-control" placeholder="Nome completo" required>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <label for="input-usuario">Email</label>
+                            <input name="email" type="email" class="form-control" placeholder="meu@email.com" required>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            <label for="input-senha">Senha</label>
+                            <input name="password" type="password" class="form-control" placeholder="12345" required>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script id="coreJs" src="../../core/predocs.js"></script>
+    <script src="../../js/pages/usuario/novo.js"></script>
+</body>
+
+</html>

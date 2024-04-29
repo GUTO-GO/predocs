@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Url do repositório do GitHub
-repo_url="https://github.com/Felipe-Cavalca/predocs.git"
+repo_url="https://github.com/Felipe-Cavalca/Dossier-Dev.git"
 
 # Extrair o nome do repositório da URL do Git
 repo_name=$(basename "$repo_url" .git)
@@ -39,4 +39,4 @@ docker-compose up --build -d
 docker-compose exec predocs bash scripts/install_dependencies.sh
 
 # Instala o banco de dados
-docker-compose exec predocs bash scripts/install_bd.sh
+docker-compose exec predocs bash scripts/install_db.sh

@@ -1,5 +1,7 @@
 body {
-    background-color: var(--cor-fundo);
+    background-image: var(--cor-fundo);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--cor-texto);
 }
 
@@ -10,4 +12,8 @@ pre {
     border: 1px solid #ccc;
     border-radius: 4px;
     overflow: auto;
+}
+
+.card {
+    position: static;
 }

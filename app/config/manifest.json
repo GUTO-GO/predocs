@@ -1,6 +1,6 @@
 {
-    "short_name": "Predocs",
-    "name": "Framework Predocs",
+    "short_name": "Dossier",
+    "name": "Dossier",
     "icons": [
         {
             "src": "/icon-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "start_url": "http:\/\/predocs.test\/app\/pages\/",
+    "start_url": "http:\/\/dossier.test\/app\/pages\/",
     "background_color": "#3367D6",
     "display": "standalone",
     "scope": "/",
